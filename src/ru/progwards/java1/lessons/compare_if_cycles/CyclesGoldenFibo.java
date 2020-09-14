@@ -17,12 +17,11 @@ public class CyclesGoldenFibo {
     }
     public static int fiboNumber(int n){
         int n0 = 0;
-        int n1 = 1;
-        for (int i = 1; i <= n; i++){
-            n1 += n0;
-            n0 = n1 - n0;
+        int i = 1;
+        while (i < n ){
+            i = n0 + (n0 = i);
         }
-        return n1;
+        return n0;
     }
     public static boolean isGoldenTriangle(int a, int b, int c) {
         /* создаем переменные для обозначения соотношения сторон,
@@ -43,7 +42,7 @@ public class CyclesGoldenFibo {
     }
 
     public static void main(String[] args) {
-        System.out.println(fiboNumber(3));
+        System.out.println(fiboNumber(2));
     }
 
 }
