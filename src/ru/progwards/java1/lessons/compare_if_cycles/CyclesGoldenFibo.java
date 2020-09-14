@@ -10,18 +10,19 @@ public class CyclesGoldenFibo {
             }
             number/= 10;
         }
+        if (number == 0 && digit == 0) {
+                return true;
+            }
         return false;
     }
     public static int fiboNumber(int n){
-        int n0 = 1;
+        int n0 = 0;
         int n1 = 1;
-        int n2 = 2;
-        for(int i = 3; i <= n; i++){
-            n2=n0+n1;
-            n0=n1;
-            n1=n2;
+        for (int i = 1; i <= n; i++){
+            n1 += n0;
+            n0 = n1 - n0;
         }
-        return n2;
+        return n1;
     }
     public static boolean isGoldenTriangle(int a, int b, int c) {
         /* создаем переменные для обозначения соотношения сторон,
@@ -42,7 +43,7 @@ public class CyclesGoldenFibo {
     }
 
     public static void main(String[] args) {
-        System.out.println(isGoldenTriangle(9, 6, 6));
+        System.out.println(fiboNumber(3));
     }
 
 }
