@@ -22,11 +22,13 @@ public class CyclesGoldenFibo {
         int f0 = 0;
         int f1 = 1;
         int tmp;
-        for (int i = 0; i < n; i++) {
+        if (n == f0){
+            return f0;
+        }
+        for (int i = 1; i < n; i++) {
             tmp = f1;
             f1 = f1 + f0;
             f0 = tmp;
-
         }
         return f1;
     }
@@ -48,7 +50,7 @@ public class CyclesGoldenFibo {
     }
 
     public static void main(String[] args) {
-        System.out.print(isGoldenTriangle(55,89,89));
+        System.out.print(fiboNumber(3));
         /* что требуется в 3.3 понимаю, но не знаю как реализовать
          */
     }
