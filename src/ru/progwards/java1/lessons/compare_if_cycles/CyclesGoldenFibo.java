@@ -4,17 +4,19 @@ public class CyclesGoldenFibo {
     final static double CONST_MIN = 1.61703;
     final static double CONST_MAX = 1.61903;
     public static boolean containsDigit(int number, int digit){
-        int remainderOfDivision; // остаток от деления на 10
-        if (number == digit && digit == 0){
-            return  true;
-        }
-        while (number >= 1){
-            remainderOfDivision = number % 10;
-            if (remainderOfDivision == digit){
+        int remainderOfDivision;
+        if (number >= 1){
+            while (number >= 1){
+                remainderOfDivision = number % 10;
+                if (remainderOfDivision == digit){
+                    return true;
+                }
+                number/= 10;
+            }
+        } else {
+            if (number == digit && digit == 0){
                 return true;
             }
-            number/= 10;
-
         }
         return false;
     }

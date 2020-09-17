@@ -38,8 +38,68 @@ public class Test1 {
         }
         return n2;
     }
+    static long factorial(long n){
+        int proizv = 1;
+        int n0 = 0;
+        if (n == n0){
+            return n0;
+        }
+        for (int i = 1; i <= n; i++){
+            proizv = proizv * i;
+        }
+        return proizv;
+    }
+    static String textGrade(int grade){
+        String rating = null;
+        if (grade == 0){
+            rating = "не оценено";
+        }
+        if (0 < grade && grade <= 20){
+            rating = "очень плохо";
+        }
+        if (20 < grade && grade <= 40){
+            rating = "плохо";
+        }
+        if (40 < grade && grade <= 60){
+            rating = "удовлетворительно";
+        }
+        if (60 < grade && grade <= 80){
+            rating = "хорошо";
+        }
+        if (80 < grade && grade <= 100){
+            rating = "отлично";
+        }
+        if (100 < grade){
+            rating = "не определено";
+        }
+        return rating;
+    }
+
+    static int addAsStrings(int n1, int n2){
+        String str1 = Integer.toString(n1);
+        String str2 = Integer.toString(n2);
+        Integer number = Integer.parseInt(str1+str2);
+        return number;
+    }
+    public static boolean containsDigit(int number, int digit){
+        int remainderOfDivision;
+         if (number >= 1){
+            while (number >= 1){
+                remainderOfDivision = number % 10;
+                if (remainderOfDivision == digit){
+                    return true;
+                }
+                number/= 10;
+            }
+        } else {
+             if (number == digit && digit == 0){
+                 return true;
+             }
+         }
+        return false;
+    }
 
     public static void main(String[] args) {
-        System.out.println(isGoldenTriangle(55, 55, 89));
+        System.out.println(containsDigit(0, 0));
     }
 }
