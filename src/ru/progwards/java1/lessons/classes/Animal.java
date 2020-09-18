@@ -48,8 +48,4 @@ public class Animal { // сохраняем вес животного
     public String toStringFull(){
         return "I am " + getKind() + ", eat " + getFoodKind() + " " + calculateFoodWeight();
     }
-
-    public static void printInfo(Animal animal){
-        System.out.println(animal.toStringFull());
-    }
 }
