@@ -15,7 +15,5 @@ public class ComplexNum {
     }
     // сложение комплексных чисел по формуле:
     // (a + bi) + (c + di) = (a + c) + (b + d)i
-    public ComplexNum add(ComplexNum num){
-        return
-    }
+
 }
