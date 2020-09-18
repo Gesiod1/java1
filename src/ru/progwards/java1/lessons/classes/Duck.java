@@ -1,7 +1,7 @@
 package ru.progwards.java1.lessons.classes;
 
-public class DUCK extends  Animal{
-    public DUCK(double weight) {
+public class Duck extends  Animal{
+    public Duck (double weight) {
         super(weight);
     }
 
