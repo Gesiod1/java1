@@ -3,34 +3,60 @@ package ru.progwards.java1.lessons.arrays;
 import java.util.Arrays;
 
 public class DIntArray {
-    private int [] origin_array;
+    private int [] arrayInt  = new int [2];
 
     public void add(int num){ // добавляет элемент num  в конец массива
-        int [] copy_array = Arrays.copyOf(origin_array, origin_array.length + 1); // создаем копию массива
-        copy_array[origin_array.length + 1] = num; // добавляем последним элементом num
-        origin_array = copy_array;
+        int [] arrayIntCopy = Arrays.copyOf(arrayInt, arrayInt.length + 1); // создаем копию массива
+        arrayIntCopy[arrayInt.length] = num; // добавляем последним элементом num
+        arrayInt = arrayIntCopy;
     }
-    public int [] return_array(int num){
-        return origin_array;
+
+    public int[] getArrayInt() {
+        return arrayInt;
+    }
+
+    @Override
+    public String toString() {
+        return "DIntArray{" +
+                "arrayInt=" + Arrays.toString(arrayInt) +
+                '}';
     }
 
     public void atInsert(int pos, int num){ // добавляет элемент num в позицию pos массива
-//        int [] copy_array = Arrays.copyOf(origin_array, origin_array.length + 1); // создали его копию
-//        copy_array[pos] = num; // кладем значение num с индексом pos в новую копию
-//        for (int pos, n = copy_array.length; pos < n; pos++) {// сдвинаем массив после добавления элемента
-//           copy_array[pos + 1] = origin_array[pos];
-//        }
-//        origin_array = copy_array;
+        int [] arrayIntCopy = Arrays.copyOf(arrayInt, arrayInt.length + 1);
+        arrayIntCopy [pos] = num;
+        System.arraycopy(arrayInt, pos, arrayIntCopy, pos + 1, arrayInt.length - pos);
+        arrayInt = arrayIntCopy;
     }
 
     public void atDelete(int pos){ //удаляет элемент в позиции pos массива
+        int [] arrayCopy = new int [arrayInt.length - 1];
+        System.arraycopy(arrayInt, 0, arrayCopy, 0, pos);
+        System.arraycopy(arrayInt, pos + 1, arrayCopy, pos, arrayInt.length - pos - 1);
+        arrayInt = arrayCopy;
     }
 
     public int at(int pos){ //возвращает элемент по индексу pos
-        return origin_array[pos];
+        int [] arrayPos = new int [1];
+        System.arraycopy(arrayInt, pos, arrayPos, 0, 1);
+        pos = arrayPos[0];
+        return pos;
     }
 
     public static void main(String[] args){
-        int [] a1 = {3, 5, 1, 0, 7};
+        DIntArray a2 = new DIntArray();
+        System.out.println(a2);
+        a2.add(5);
+        a2.add(89);
+        a2.add(32);
+        System.out.println(a2);
+        a2.atInsert(3, 13);
+        System.out.println(a2);
+        a2.atDelete(3);
+        System.out.println(a2);
+        a2.atDelete(0);
+        a2.atDelete(0);
+        System.out.println(a2);
+        System.out.println(a2.at(1));
     }
 }
