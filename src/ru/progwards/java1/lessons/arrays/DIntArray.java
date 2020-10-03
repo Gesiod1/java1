@@ -37,10 +37,7 @@ public class DIntArray {
     }
 
     public int at(int pos){ //возвращает элемент по индексу pos
-        int [] arrayPos = new int [1];
-        System.arraycopy(arrayInt, pos, arrayPos, 0, 1);
-        pos = arrayPos[0];
-        return pos;
+        return arrayInt[pos];
     }
 
     public static void main(String[] args){
@@ -57,6 +54,6 @@ public class DIntArray {
         a2.atDelete(0);
         a2.atDelete(0);
         System.out.println(a2);
-        System.out.println(a2.at(1));
+        System.out.println(a2.at(2));
     }
 }
