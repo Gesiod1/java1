@@ -3,7 +3,7 @@ package ru.progwards.java1.lessons.arrays;
 import java.util.Arrays;
 
 public class DIntArray {
-    private int [] arrayInt  = new int [2];
+    private int [] arrayInt  = new int [0];
 
     public void add(int num){ // добавляет элемент num  в конец массива
         int [] arrayIntCopy = Arrays.copyOf(arrayInt, arrayInt.length + 1); // создаем копию массива
@@ -42,18 +42,21 @@ public class DIntArray {
 
     public static void main(String[] args){
         DIntArray a2 = new DIntArray();
+        a2.add(27);
+        a2.add(-3);
+        a2.add(96);
+        a2.add(55);
+        a2.add(-8);
+        a2.add(-88);
+        a2.add(-56);
+        a2.add(-65);
+        a2.add(40);
+        a2.add(-50);
+        a2.add(64);
+        a2.add(-24);
+        a2.add(69);
         System.out.println(a2);
-        a2.add(5);
-        a2.add(89);
-        a2.add(32);
-        System.out.println(a2);
-        a2.atInsert(3, 13);
-        System.out.println(a2);
-        a2.atDelete(3);
-        System.out.println(a2);
-        a2.atDelete(0);
-        a2.atDelete(0);
-        System.out.println(a2);
-        System.out.println(a2.at(2));
+        a2.atDelete(10);
+        System.out.println(a2.at(10));
     }
 }
