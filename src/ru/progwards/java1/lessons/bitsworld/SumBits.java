@@ -7,15 +7,14 @@ public class SumBits {
         int result = 0;
 
         while (value > 0){
-            int quantity = value & 0b00000000_00000000_00000000_00000001; //записывает бит для сложения
+            int quantity = value & 0b1; //записывает бит для сложения
             result += quantity;
-            value >>= 1;
+            value >>>= 1;
         }
-
         return result;
     }
 
     public static void main(String[] args) {
-        System.out.println(sumBits((byte) 0b011111));
+        System.out.println(sumBits((byte) 0b1111100));
     }
 }
