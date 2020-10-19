@@ -3,7 +3,7 @@ package ru.progwards.java1.lessons.interfaces;
 //сохранение одного, последнего из рассчитанных значений
 public class CalculateFibonacci {
     // приватная статическая переменная
-    private  static CacheInfo lastFibo;
+    private  static CacheInfo lastFibo = new CacheInfo();
 
     public static class CacheInfo{
         //число, для которого рассчитываем Фибоначчи
@@ -37,12 +37,14 @@ public class CalculateFibonacci {
     public static CacheInfo getLastFibo() {
         return lastFibo;
     }
-    // брасывает lastFibo в null
+    // сбрасывает lastFibo в null
     public static void clearLastFibo(){
         lastFibo = null;
     }
     public static void main(String[] args) {
-        System.out.println(fiboNumber(5));
+        System.out.println(fiboNumber(7));
+        System.out.println(getLastFibo().fibo);
+        System.out.println(getLastFibo().n);
     }
 }
 
