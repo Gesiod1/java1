@@ -14,7 +14,7 @@ public class Food implements  CompareWeight{
     public CompareResult compareWeight(CompareWeight smthHasWeigt) {
         Food food = (Food) smthHasWeigt;
         if (this.getWeight() == food.getWeight()){
-            return CompareResult.EQUALS;
+            return CompareResult.EQUAL;
         } else if (this.getWeight() < food.getWeight()){
             return CompareResult.LESS;
         } return CompareResult.GREATER;
@@ -27,7 +27,7 @@ public class Food implements  CompareWeight{
 //        } return CompareResult.GREATER;
 //    }
 public static void main(String[] args) {
-    Food eat1 = new Food(12);
+    Food eat1 = new Food(45);
     Food eat2 = new Food(33);
     System.out.println(eat1.compareWeight(eat2));
 }

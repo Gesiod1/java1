@@ -22,7 +22,7 @@ public class Animal implements FoodCompare, CompareWeight{ // сохраняем
     @Override
     public CompareResult compareWeight(CompareWeight smthHasWeigt) {
         if (this.getWeight() == smthHasWeigt.getWeight()){
-            return CompareResult.EQUALS;
+            return CompareResult.EQUAL;
         } else if (this.getWeight() < smthHasWeigt.getWeight()){
             return CompareResult.LESS;
         } return CompareResult.GREATER;
