@@ -20,10 +20,10 @@ public class Animal implements FoodCompare, CompareWeight{ // сохраняем
     }
 
     @Override
-    public CompareResult compareWeight(double smthHasWeigt) {
-        if (this.getWeight() == smthHasWeigt){
+    public CompareResult compareWeight(CompareWeight smthHasWeigt) {
+        if (this.getWeight() == smthHasWeigt.getWeight()){
             return CompareResult.EQUALS;
-        } else if (this.getWeight() < smthHasWeigt){
+        } else if (this.getWeight() < smthHasWeigt.getWeight()){
             return CompareResult.LESS;
         } return CompareResult.GREATER;
     }
@@ -109,6 +109,6 @@ public class Animal implements FoodCompare, CompareWeight{ // сохраняем
         System.out.println(duck.getFood1kgPrice());
         System.out.println(duck.getClass());
         System.out.println(duck.compareFoodPrice(hamster));
-        System.out.println(duck.compareWeight(hamster.getWeight()));
+        System.out.println(duck.compareWeight(hamster));
     }
 }
