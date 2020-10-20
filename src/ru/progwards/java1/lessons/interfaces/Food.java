@@ -6,28 +6,30 @@ public class Food implements  CompareWeight{
         this.weight = weight;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
     @Override
     public CompareResult compareWeight(CompareWeight smthHasWeigt) {
-//        Food food = (Food) smthHasWeigt;
-//        if (this.food() == food.getWeight()){
-//            return CompareResult.EQUALS;
-//        } else if (this.food() < food.getWeight()){
-//            return CompareResult.LESS;
-//        } return CompareResult.GREATER;
-//    }
-
-        if (this.getWeight() == smthHasWeigt.getWeight()){
+        Food food = (Food) smthHasWeigt;
+        if (this.getWeight() == food.getWeight()){
             return CompareResult.EQUALS;
-        } else if (this.getWeight() < smthHasWeigt.getWeight()){
+        } else if (this.getWeight() < food.getWeight()){
             return CompareResult.LESS;
         } return CompareResult.GREATER;
     }
 
-    public static void main(String[] args) {
+//        if (this.getWeight() == smthHasWeigt.getWeight()){
+//            return CompareResult.EQUALS;
+//        } else if (this.getWeight() < smthHasWeigt.getWeight()){
+//            return CompareResult.LESS;
+//        } return CompareResult.GREATER;
+//    }
+public static void main(String[] args) {
+    Food eat1 = new Food(12);
+    Food eat2 = new Food(33);
+    System.out.println(eat1.compareWeight(eat2));
+}
 
-    }
 }
