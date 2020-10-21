@@ -6,7 +6,7 @@ public class Food implements  CompareWeight{
         this.weight = weight;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
@@ -26,10 +26,9 @@ public class Food implements  CompareWeight{
 //            return CompareResult.LESS;
 //        } return CompareResult.GREATER;
 //    }
-public static void main(String[] args) {
-    Food eat1 = new Food(45);
-    Food eat2 = new Food(33);
-    System.out.println(eat1.compareWeight(eat2));
-}
-
+    public static void main(String[] args) {
+        Food eat1 = new Food(45);
+        Food eat2 = new Food(33);
+        System.out.println(eat1.compareWeight(eat2));
+    }
 }

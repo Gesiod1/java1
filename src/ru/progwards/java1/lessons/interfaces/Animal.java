@@ -21,9 +21,10 @@ public class Animal implements FoodCompare, CompareWeight{ // сохраняем
 
     @Override
     public CompareResult compareWeight(CompareWeight smthHasWeigt) {
-        if (this.getWeight() == smthHasWeigt.getWeight()){
+        Animal animal = (Animal) smthHasWeigt;
+        if (this.getWeight() == animal.getWeight()){
             return CompareResult.EQUAL;
-        } else if (this.getWeight() < smthHasWeigt.getWeight()){
+        } else if (this.getWeight() < animal.getWeight()){
             return CompareResult.LESS;
         } return CompareResult.GREATER;
     }
@@ -45,8 +46,8 @@ public class Animal implements FoodCompare, CompareWeight{ // сохраняем
     }
     // Объявляем переменные
 //    FoodKind foodKind_unknown = FoodKind.UNKNOWN;
-    FoodKind foodKind_hay = FoodKind.HAY;
-    FoodKind foodKind_corn = FoodKind.CORN;
+//    FoodKind foodKind_hay = FoodKind.HAY;
+//    FoodKind foodKind_corn = FoodKind.CORN;
 
     public double getFood1kgPrice(){ // цена за 1 кг еды
         double result = 0;
