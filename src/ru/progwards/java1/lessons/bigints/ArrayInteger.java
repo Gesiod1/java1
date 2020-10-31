@@ -34,6 +34,11 @@ private byte[] digits;
         }
         return result;
     }
+
+    boolean add(ArrayInteger num){
+        return true;
+    }
+
     public static void main(String[] args) {
         ArrayInteger arr1 = new ArrayInteger(2);
         arr1.fromInt(new BigInteger("123"));
