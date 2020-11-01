@@ -26,22 +26,56 @@ private byte[] digits;
     }
     BigInteger toInt(){
         BigInteger result = BigInteger.ZERO;
-        BigInteger p = BigInteger.ONE;
+        BigInteger dis = BigInteger.ONE;
 
         for (int i = 0; i < digits.length; i++) {
             result = result.add(BigInteger.valueOf(digits[i]));
-            p = p.multiply(BigInteger.TEN);
+            dis = dis.multiply(BigInteger.TEN);
         }
         return result;
     }
 
     boolean add(ArrayInteger num){
+        if (digits.length < num.getDigitLength()){
+            Arrays.fill(digits, (byte) 0);
+            return false;
+        }
+        byte o = 0;
+        for (int i = 0; i < digits.length; i++) {
+            digits[i] = (byte) (digits[i] + num.getDigit(i) + o);
+            if (digits[i] > 9){
+                digits[i] = (byte) (digits[i] - 10);
+                o = 1;
+            } else {
+                o = 0;
+            }
+        }
+        if (o == 0){
         return true;
+        }
+        Arrays.fill(digits, (byte) 0);
+            return false;
+
+    }
+    byte getDigit(int i){
+        if (i > digits.length - 1){
+            return 0;
+        }
+        return  digits[i];
+
+    }
+    int getDigitLength(){
+        return this.n;
     }
 
     public static void main(String[] args) {
-        ArrayInteger arr1 = new ArrayInteger(2);
+        ArrayInteger arr1 = new ArrayInteger(3);
+        ArrayInteger arr2 = new ArrayInteger(4);
         arr1.fromInt(new BigInteger("123"));
+        arr2.fromInt(new BigInteger("5555"));
+        System.out.println(arr2.add(arr1));
+        arr1.toInt();
+        System.out.println(arr1);
     }
 
 //    static  byte[] fillArray (int n){
