@@ -29,7 +29,7 @@ private byte[] digits;
         BigInteger dis = BigInteger.ONE;
 
         for (int i = 0; i < digits.length; i++) {
-            result = result.add(BigInteger.valueOf(digits[i]));
+            result = result.add(BigInteger.valueOf(digits[i]).multiply(dis));
             dis = dis.multiply(BigInteger.TEN);
         }
         return result;
@@ -69,11 +69,11 @@ private byte[] digits;
     }
 
     public static void main(String[] args) {
-        ArrayInteger arr1 = new ArrayInteger(3);
-        ArrayInteger arr2 = new ArrayInteger(4);
-        arr1.fromInt(new BigInteger("123"));
-        arr2.fromInt(new BigInteger("5555"));
-        System.out.println(arr2.add(arr1));
+        ArrayInteger arr1 = new ArrayInteger(8);
+        ArrayInteger arr2 = new ArrayInteger(6);
+        arr1.fromInt(new BigInteger("10259563"));
+        arr2.fromInt(new BigInteger("124269"));
+        System.out.println(arr1.add(arr2));
         arr1.toInt();
         System.out.println(arr1);
     }
