@@ -43,7 +43,7 @@ public class SeaBattleAlg {
     public static void main(String[] args) {
         System.out.println("Sea battle");
         SeaBattle seaBattle = new SeaBattle(true);
-        new ru.progwards.java1.lessons.SeaBattle.khorinvadim.SeaBattleAlg().battleAlgorithm(seaBattle);
+        new SeaBattleAlg().battleAlgorithm(seaBattle);
         System.out.println(seaBattle.getResult());
     }
 }
