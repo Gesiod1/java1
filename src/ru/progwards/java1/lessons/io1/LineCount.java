@@ -12,20 +12,20 @@ public class LineCount {
             FileReader reader = new FileReader(fileName);
             Scanner scanner = new Scanner(reader);
             int countEmptyLine = 0;
-//            while (true){
-//                String strNextLine = scanner.nextLine();
-//                if (strNextLine.length() == 0){
-//                    countEmptyLine++;
-//                }
-//                if (!scanner.hasNextLine()){
-//                    break;
-//                }
-//            }
-//            return countEmptyLine;
             while (true){
-                countEmptyLine += scanner.hasNextLine() && scanner.nextLine().length() == 0 ? 1 : 0;
-                if (!scanner.hasNext()) return countEmptyLine;
+                String strNextLine = scanner.nextLine();
+                if (strNextLine.length() == 0){
+                    countEmptyLine++;
+                }
+                if (!scanner.hasNextLine()){
+                    break;
+                }
             }
+            return countEmptyLine;
+//            while (true){
+//                countEmptyLine += scanner.hasNextLine() && scanner.nextLine().length() == 0 ? 1 : 0;
+//                if (!scanner.hasNext()) return countEmptyLine;
+//            }
         }
 
         catch (FileNotFoundException e){
