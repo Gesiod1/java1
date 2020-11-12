@@ -17,16 +17,18 @@ public class CharFilter {
                 char[] nextLineToChar = strNextLine.toCharArray();
                 for (int i = 0; i < nextLineToChar.length; i++) {
                     for (int j = 0; j < filterToChar.length; j++) {
-                        if (nextLineToChar[i] != filterToChar[j]){
-                            FileWriter writer = new FileWriter(outFileName);
-                            writer.write(nextLineToChar[i]);
-                            writer.close();
+                        if (nextLineToChar[i] == filterToChar[j]){
+                            break;
                         }
                     }
-
+                    FileWriter writer = new FileWriter(outFileName);
+                    writer.write(nextLineToChar[i]);
+                    writer.close();
                 }
             }
-        }catch (FileNotFoundException e){} catch (IOException e) {
+        }catch (FileNotFoundException e){
+            e.getMessage();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
