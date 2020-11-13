@@ -14,17 +14,12 @@ public class CharFilter {
             char[] filterToChar = filter.toCharArray();
             while (scanner.hasNextLine()){
                 String strNextLine = scanner.nextLine();
-                char[] nextLineToChar = strNextLine.toCharArray();
-                for (int i = 0; i < nextLineToChar.length; i++) {
-                    for (int j = 0; j < filterToChar.length; j++) {
-                        if (nextLineToChar[i] == filterToChar[j]){
-                            break;
-                        }
-                    }
-                    FileWriter writer = new FileWriter(outFileName);
-                    writer.write(nextLineToChar[i]);
-                    writer.close();
+                for (int i = 0; i < filterToChar.length; i++) {
+                    strNextLine = strNextLine.replaceAll(String.valueOf(filterToChar[i]), "");
                 }
+                FileWriter writer = new FileWriter(outFileName);
+                writer.write(strNextLine);
+                writer.close();
             }
         }catch (FileNotFoundException e){
             e.getMessage();
