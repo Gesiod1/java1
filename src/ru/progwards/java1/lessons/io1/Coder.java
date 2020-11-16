@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Coder {
-    public static void codeFile(String inFileName, String outFileName, char[] code, String logName) throws IOException {
+    public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
         try{
             FileReader reader = new FileReader(inFileName);
             Scanner scanner = new Scanner(reader);
@@ -27,11 +27,15 @@ public class Coder {
                 writer.write(charNextLine + "\n");
             }
             writer.close();
-        } catch (FileNotFoundException e){
-            FileWriter logWrite = new FileWriter(logName);
-            logWrite.write(e.getMessage());
-            logWrite.close();
-            throw new IOException(e.getMessage());
+        } catch (IOException e){
+            try {
+                FileWriter logWrite = new FileWriter(logName);
+                logWrite.write(e.getMessage());
+                logWrite.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         }
     }
 
