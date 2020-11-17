@@ -1,32 +1,23 @@
 package ru.progwards.java1.lessons.io1;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Coder {
     public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
         try{
-            FileReader reader = new FileReader(inFileName);
-            Scanner scanner = new Scanner(reader);
+            FileInputStream reader = new FileInputStream(inFileName);
             FileWriter writer = new FileWriter(outFileName);
-            while (scanner.hasNextLine()){
-                String nextLine = scanner.nextLine();
+            while (true){
+                byte[] arrayByte = reader.readAllBytes();
                 String charNextLine = new String();
-                byte[] arrayNextLine = new byte [nextLine.length()];
-                for (int i = 0; i < nextLine.length(); i++) {
-                    arrayNextLine[i] = (byte) nextLine.charAt(i);
-                }
-                for (int i = 0; i < nextLine.length(); i++) {
-                    arrayNextLine[i] = (byte) code[arrayNextLine[i]];
-                    charNextLine += (char) arrayNextLine[i];
+                for (int i = 0; i <  arrayByte.length; i++) {
+                    arrayByte[i] = (byte) code[arrayByte[i]];
+                    charNextLine += (char) arrayByte[i];
                 }
                 writer.write(charNextLine + "\n");
             }
-            writer.close();
         } catch (IOException e){
             try {
                 FileWriter logWrite = new FileWriter(logName);
