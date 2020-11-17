@@ -42,8 +42,7 @@ public class Coder {
     public static void main(String[] args) throws IOException {
         char[] test1 = new char[255];
         for (int i = 254; i > 0; i--) {
-            test1[i] = (char) (Math.random()*127)
-            ;
+            test1[i] = (char) (Math.random()*127);
         }
 
         codeFile("forRead.txt", "forWrite.txt", test1, "logfile.txt");
