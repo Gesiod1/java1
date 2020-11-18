@@ -8,14 +8,14 @@ public class Coder {
     public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
         try{
             FileInputStream reader = new FileInputStream(inFileName);
-            FileWriter writer = new FileWriter(outFileName);
+            FileOutputStream writer = new FileOutputStream(outFileName);
             byte[] arrayByte = reader.readAllBytes();
             String strChar = new String();
             for (int i = 0; i <  arrayByte.length; i++) {
                 arrayByte[i] = (byte) code[arrayByte[i]];
                 strChar += (char) arrayByte[i];
             }
-            writer.write(strChar);
+            writer.write(arrayByte);
             writer.close();
         } catch (IOException e){
             try {
