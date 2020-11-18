@@ -9,15 +9,14 @@ public class Coder {
         try{
             FileInputStream reader = new FileInputStream(inFileName);
             FileWriter writer = new FileWriter(outFileName);
-            while (true){
-                byte[] arrayByte = reader.readAllBytes();
-                String charNextLine = new String();
-                for (int i = 0; i <  arrayByte.length; i++) {
-                    arrayByte[i] = (byte) code[arrayByte[i]];
-                    charNextLine += (char) arrayByte[i];
-                }
-                writer.write(charNextLine + "\n");
+            byte[] arrayByte = reader.readAllBytes();
+            String strChar = new String();
+            for (int i = 0; i <  arrayByte.length; i++) {
+                arrayByte[i] = (byte) code[arrayByte[i]];
+                strChar += (char) arrayByte[i];
             }
+            writer.write(strChar);
+            writer.close();
         } catch (IOException e){
             try {
                 FileWriter logWrite = new FileWriter(logName);
