@@ -15,7 +15,7 @@ public class Coder {
             }
             writer.write(arrayByte);
             writer.close();
-        } catch (IOException e){
+        } catch (IOException | ArrayIndexOutOfBoundsException e){
             try {
                 FileWriter logWrite = new FileWriter(logName);
                 logWrite.write(e.getMessage());
