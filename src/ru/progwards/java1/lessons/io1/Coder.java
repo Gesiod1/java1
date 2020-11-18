@@ -28,8 +28,8 @@ public class Coder {
     }
 
     public static void main(String[] args) throws IOException {
-        char[] test1 = new char[255];
-        for (int i = 254; i > 0; i--) {
+        char[] test1 = new char[256];
+        for (int i = 255; i >= 0; i--) {
             test1[i] = (char) (Math.random()*127);
         }
 
