@@ -10,10 +10,8 @@ public class Coder {
             FileInputStream reader = new FileInputStream(inFileName);
             FileOutputStream writer = new FileOutputStream(outFileName);
             byte[] arrayByte = reader.readAllBytes();
-            String strChar = new String();
             for (int i = 0; i <  arrayByte.length; i++) {
                 arrayByte[i] = (byte) code[arrayByte[i]];
-                strChar += (char) arrayByte[i];
             }
             writer.write(arrayByte);
             writer.close();
