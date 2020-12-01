@@ -28,6 +28,9 @@ public class Translator {
                 if (sentenceArray[i].equals(inLang[j])){ // если есть
                     stringBuilder.append(outLang[j]); // то берем это слово из массива outLang
                     stringBuilder.append(charStr); // добавляем символ
+                    if(i == inLang.length - 1){
+                        break;
+                    }
                     stringBuilder.append(' ');
                 }
             }
