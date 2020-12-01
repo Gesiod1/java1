@@ -38,7 +38,6 @@ public class Translator {
                         firstLetter = firstLetter.toUpperCase();
                         char[] firstLetterArray = firstLetter.toCharArray();
                         outLang[j] = outLang[j].replace(forUpperCase[0], firstLetterArray[0]);
-                        upperCase.setLength(0); // очищаем строку с заглавной буквой
                     }
                     stringBuilder.append(outLang[j]); // берем это слово из массива outLang
 
@@ -49,6 +48,7 @@ public class Translator {
                     stringBuilder.append(' ');
                 }
             }
+            upperCase.setLength(0); // очищаем строку с заглавной буквой
             charStr.setLength(0); // очищаем строку с символами для новой итерации
         }
         String result = stringBuilder.toString();
@@ -56,10 +56,10 @@ public class Translator {
     }
 
     public static void main(String[] args) {
-        String[] rus = {"Я", "люблю", "свою", "работу"};
-        String[] eng = {"I", "like", "my", "job"};
-        String fuckOff = "Свою, работу!!!";
-        Translator translator = new Translator(rus, eng);
+        String[] rus = {"твори", "любовь", "не", "войну"};
+        String[] eng = {"make", "love", "not", "war"};
+        String fuckOff = "Make love! Not war!";
+        Translator translator = new Translator(eng, rus);
         System.out.println(translator.translate(fuckOff));
     }
 }
