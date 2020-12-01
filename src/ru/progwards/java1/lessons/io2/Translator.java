@@ -10,8 +10,9 @@ public class Translator {
 
     public String translate(String sentence){
         String[] sentenceArray = sentence.split(" ");
-        StringBuilder charStr = new StringBuilder(); // строка для записи символов
         StringBuilder stringBuilder = new StringBuilder(); // строка для записи слов
+        StringBuilder charStr = new StringBuilder(); // строка для записи символов
+        StringBuilder upperCase = new StringBuilder();
         for (int i = 0; i < sentenceArray.length; i++) {
             //проверить наличие символов в конце слова из массива sentenceArray,
             // и если есть, то записываем его в строку charStr
@@ -22,11 +23,24 @@ public class Translator {
                     String symbol = c.toString();
                     sentenceArray[i] = sentenceArray[i].replace(symbol, "");
                 }
+                if (!Character.isLowerCase(c)){
+                    upperCase.append(c);
+                    String upper = c.toString();
+                    sentenceArray[i] = sentenceArray[i].replace(upper, upper.toLowerCase());
+                }
             }
 
             for (int j = 0; j < inLang.length; j++) { // проверяем слово из sentence на наличие его в массиве inLang
                 if (sentenceArray[i].equals(inLang[j])){ // если есть
-                    stringBuilder.append(outLang[j]); // то берем это слово из массива outLang
+                    if (upperCase != null){
+                        char[] forUpperCase = outLang[j].toCharArray();
+                        String firstLetter = Character.toString(forUpperCase[0]);
+                        firstLetter = firstLetter.toUpperCase();
+                        char[] firstLetterArray = firstLetter.toCharArray();
+                        outLang[j] = outLang[j].replace(forUpperCase[0], firstLetterArray[0]);
+                    }
+                    stringBuilder.append(outLang[j]); // берем это слово из массива outLang
+
                     stringBuilder.append(charStr); // добавляем символ
                     if(i == inLang.length - 1){
                         break;
@@ -43,7 +57,7 @@ public class Translator {
     public static void main(String[] args) {
         String[] rus = {"Я", "люблю", "свою", "работу"};
         String[] eng = {"I", "like", "my", "job"};
-        String fuckOff = "свою, работу!!!";
+        String fuckOff = "Свою, Работу!!!";
         Translator translator = new Translator(rus, eng);
         System.out.println(translator.translate(fuckOff));
     }
