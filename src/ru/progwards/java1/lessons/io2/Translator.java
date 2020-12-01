@@ -23,7 +23,7 @@ public class Translator {
                     String symbol = c.toString();
                     sentenceArray[i] = sentenceArray[i].replace(symbol, "");
                 }
-                if (!Character.isLowerCase(c)){
+                if (Character.isAlphabetic(c) && !Character.isLowerCase(c)){
                     upperCase.append(c);
                     String upper = c.toString();
                     sentenceArray[i] = sentenceArray[i].replace(upper, upper.toLowerCase());
@@ -32,12 +32,13 @@ public class Translator {
 
             for (int j = 0; j < inLang.length; j++) { // проверяем слово из sentence на наличие его в массиве inLang
                 if (sentenceArray[i].equals(inLang[j])){ // если есть
-                    if (upperCase != null){
+                    if (upperCase.toString().toCharArray().length != 0){
                         char[] forUpperCase = outLang[j].toCharArray();
                         String firstLetter = Character.toString(forUpperCase[0]);
                         firstLetter = firstLetter.toUpperCase();
                         char[] firstLetterArray = firstLetter.toCharArray();
                         outLang[j] = outLang[j].replace(forUpperCase[0], firstLetterArray[0]);
+                        upperCase.setLength(0); // очищаем строку с заглавной буквой
                     }
                     stringBuilder.append(outLang[j]); // берем это слово из массива outLang
 
@@ -57,7 +58,7 @@ public class Translator {
     public static void main(String[] args) {
         String[] rus = {"Я", "люблю", "свою", "работу"};
         String[] eng = {"I", "like", "my", "job"};
-        String fuckOff = "Свою, Работу!!!";
+        String fuckOff = "Свою, работу!!!";
         Translator translator = new Translator(rus, eng);
         System.out.println(translator.translate(fuckOff));
     }
