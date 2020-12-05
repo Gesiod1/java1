@@ -49,6 +49,9 @@ public class Censor {
             if (!checkObsence){
                     word.append(allTextArray[i]);
                     word.append(charStr); // добавляем символ
+                    if(i == allTextArray.length - 1){
+                    break;
+                    }
                     word.append(' ');
             }
             charStr.setLength(0); // очищаем строку с символами для новой итерации
