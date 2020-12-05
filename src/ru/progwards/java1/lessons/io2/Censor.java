@@ -43,8 +43,8 @@ public class Censor {
                         allTextArray[i] = allTextArray[i].replace(symbol, "");
                     }
                 }
-                StringBuilder forLetters = new StringBuilder();
-                boolean checkObsence = false;
+
+                boolean checkObsence = false; // для проверки, было ли слово в obsence
                 for (int j = 0; j < obscene.length; j++) { // проверяем слово из файла на наличие его в массиве obsence
                     if (allTextArray[i].equals(obscene[j])){ // если есть
                         String stars = "";
@@ -53,14 +53,14 @@ public class Censor {
                         }
                         word.append(stars);
                         word.append(charStr); // добавляем символ
-                        if(i == allTextArray.length - 1){
+                        if(i == allTextArray.length - 1){ // если конец текста
                             break;
                         }
                         word.append(' ');
                         checkObsence = true;
                     }
                 }
-                if (!checkObsence){
+                if (!checkObsence){ // если слово не содержится в obsence
                     word.append(allTextArray[i]);
                     word.append(charStr); // добавляем символ
                     if(i == allTextArray.length - 1){
