@@ -34,6 +34,7 @@ public class Censor {
             StringBuilder word = new StringBuilder();//
             StringBuilder charStr = new StringBuilder(); // строка для записи символов
             for (int i = 0; i < allTextArray.length; i++) {
+                String bufferWord = allTextArray[i];
                 //проверить наличие символов в конце слова из массива allTextArray,
                 // и если есть, то записываем его в строку charStr
                 // получаем слова без символов - делаем replace символа на ""
@@ -62,8 +63,7 @@ public class Censor {
                     }
                 }
                 if (!checkObsence){ // если слово не содержится в obsence
-                    word.append(allTextArray[i]);
-                    word.append(charStr); // добавляем символ
+                    word.append(bufferWord);
                     if(i == allTextArray.length - 1){
                         break;
                     }
