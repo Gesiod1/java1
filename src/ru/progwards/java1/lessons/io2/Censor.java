@@ -5,21 +5,22 @@ import java.util.Scanner;
 
 public class Censor {
     private String[] obscene;
-     class CensorException extends Exception{
+     static class CensorException extends Exception{
          private String message;
-         CensorException(String message){
+         private String filename;
+
+         public CensorException(String message, String filename) {
              this.message = message;
+             this.filename = filename;
          }
-
          @Override
-         public String toString() {
-             return "CensorException{" +
-                     "message='" + message + '\'' +
-                     '}';
+         public String toString(){
+             return filename + ": " + message;
          }
-     };
 
-    public static void censorFile(String inoutFileName, String[] obscene) throws IOException {
+     }
+
+    public static void censorFile(String inoutFileName, String[] obscene) throws IOException, CensorException {
         try {
             FileReader reader = new FileReader(inoutFileName);
             Scanner scanner = new Scanner(reader);
@@ -76,14 +77,18 @@ public class Censor {
             fileWriter.write(textStr);
             fileWriter.close();
 
-        } catch (IOException e){
-            //throw new CensorException(e.getMessage());
+        } catch (Exception e){
+            throw new CensorException(e.getMessage(), inoutFileName);
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CensorException {
         String[] censor = {"дней", "суббота", "рационально"};
-        censorFile("forRead.txt", censor);
+        try {
+            censorFile("forRead.txt", censor);
+        } catch (CensorException e) {
+            System.out.println(e.toString());
+        }
         System.out.println();
     }
 }
