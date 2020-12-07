@@ -33,8 +33,42 @@ public class Censor {
             String[] allTextArray = allText.split(" ");
             StringBuilder word = new StringBuilder();//
             StringBuilder charStr = new StringBuilder(); // строка для записи символов
+            StringBuilder wordDef = new StringBuilder(); // для слов с деффисом
             for (int i = 0; i < allTextArray.length; i++) {
-                String bufferWord = allTextArray[i];
+                String bufferWord = allTextArray[i]; // запишем слово, если его не будет в obsence
+
+//                if (allTextArray[i].contains("-")){
+//                    String[] wordWithDeffis = allTextArray[i].split("-");
+//                    boolean checkWordWithDeffis = false;
+//                    for (int k = 0; k < wordWithDeffis.length; k++) { // проверяем слово из wordWithDeffis на наличие его в массиве obsence
+//                        wordDef.append(wordWithDeffis[k]);
+//                        for (int j = 0; j < obscene.length; j++) {
+//                            if (wordWithDeffis[k].equals(obscene[j])){ // если есть
+//                                String stars = "";
+//                                for (int g = 0; g < wordWithDeffis[k].length(); g++) {
+//                                    stars += "*";
+//                                }
+//                                word.append(stars);
+//                                word.append("-"); // добавляем символ
+//                                if(i == allTextArray.length - 1){ // если конец текста
+//                                    break;
+//                                }
+//                                wordDef.setLength(0);
+//                                checkWordWithDeffis = true;
+//                            }
+//                        }
+//                        if (!checkWordWithDeffis){ // если слово не содержится в obsence
+//                            word.append(wordDef);
+//                            if(i == allTextArray.length - 1){
+//                                break;
+//                            }
+//                            word.append(' ');
+//                        }
+//                        wordDef.setLength(0);
+//                    }
+//
+//                    continue;
+//                }
                 //проверить наличие символов в конце слова из массива allTextArray,
                 // и если есть, то записываем его в строку charStr
                 // получаем слова без символов - делаем replace символа на ""
@@ -83,7 +117,7 @@ public class Censor {
     }
 
     public static void main(String[] args) throws IOException, CensorException {
-        String[] censor = {"дней", "суббота", "рационально"};
+        String[] censor = {"two", "storey", "write", "day", "count"};
         try {
             censorFile("forRead.txt", censor);
         } catch (CensorException e) {
