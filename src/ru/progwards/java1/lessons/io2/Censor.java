@@ -1,10 +1,11 @@
 package ru.progwards.java1.lessons.io2;
 
+
 import java.io.*;
 import java.util.Scanner;
 
 public class Censor {
-    private String[] obscene;
+
      static class CensorException extends Exception{
          private String message;
          private String filename;
@@ -20,101 +21,105 @@ public class Censor {
 
      }
 
-    public static void censorFile(String inoutFileName, String[] obscene) throws IOException, CensorException {
+    private static StringBuilder getAllTextAsStringBuilder(Scanner scanner) {
+        StringBuilder stringBuilder = new StringBuilder();
+        while (scanner.hasNextLine()) {
+            String nextLine = scanner.nextLine();
+            stringBuilder.append(nextLine + " ");
+        }
+        return  stringBuilder;
+    }
+
+    private static String[] convertStringToWordArray(StringBuilder stringBuilder) {
+        String allText = stringBuilder.toString();
+        return allText.split(" ");
+    }
+
+    private static String getWordWithoutEndingSymbols(String word) {
+        Integer amountOfSymbols = 0;
+        char [] wordSymbols = word.toCharArray();
+        for (int i = wordSymbols.length - 1; i > 0; i--) {
+            if (!Character.isAlphabetic(wordSymbols[i])) {
+                amountOfSymbols++;
+            } else {
+                break;
+            }
+        }
+        return word.substring(0, wordSymbols.length - amountOfSymbols);
+    }
+    private static String getEndingSymbols(String word){
+         StringBuilder charsStr = new StringBuilder();
+        char [] wordSymbols = word.toCharArray();
+        for (int i = wordSymbols.length -1; i > 0;  i--) {
+            if (!Character.isAlphabetic(wordSymbols[i])) {
+                charsStr.append(wordSymbols[i]);
+            } else {
+                break;
+            }
+        }
+         return charsStr.reverse().toString();
+    }
+
+    private static Boolean compareWithCensor(String[] obscene, String word) {
+        for (int i = 0; i < obscene.length; i++) {
+            if (obscene[i].toLowerCase().equals(word.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static String writeStars(String word) {
+        String stars = "";
+        for (int i = 0; i < word.length(); i++) {
+            stars += "*";
+        }
+        return stars;
+    }
+
+    private static String wordsWithDefis(String word){
+         String[] splitWords = word.split("-");
+        for (int i = 0; i < splitWords.length; i++) {
+            String originalWord = getWordWithoutEndingSymbols(splitWords[i]);
+            Boolean isCensored = compareWithCensor(splitWords, originalWord);
+            if (isCensored) {
+                splitWords[i] = writeStars(originalWord);
+            } else {
+                splitWords[i] = originalWord;
+            }
+        }
+        return String.join("-", splitWords);
+    }
+
+    public static void censorFile(String inoutFileName, String[] obscene) throws IOException, Censor.CensorException {
         try {
             FileReader reader = new FileReader(inoutFileName);
             Scanner scanner = new Scanner(reader);
-            StringBuilder stringBuilder = new StringBuilder(); // строка для записи слов
-            while (scanner.hasNextLine()){
-                String nextLine = scanner.nextLine();
-                stringBuilder.append(nextLine);
-            }
-            String allText = stringBuilder.toString();
-            String[] allTextArray = allText.split(" ");
-            StringBuilder word = new StringBuilder();//
-            StringBuilder charStr = new StringBuilder(); // строка для записи символов
-            StringBuilder wordDef = new StringBuilder(); // для слов с деффисом
-            for (int i = 0; i < allTextArray.length; i++) {
-                String bufferWord = allTextArray[i]; // запишем слово, если его не будет в obsence
-
-//                if (allTextArray[i].contains("-")){
-//                    String[] wordWithDeffis = allTextArray[i].split("-");
-//                    boolean checkWordWithDeffis = false;
-//                    for (int k = 0; k < wordWithDeffis.length; k++) { // проверяем слово из wordWithDeffis на наличие его в массиве obsence
-//                        wordDef.append(wordWithDeffis[k]);
-//                        for (int j = 0; j < obscene.length; j++) {
-//                            if (wordWithDeffis[k].equals(obscene[j])){ // если есть
-//                                String stars = "";
-//                                for (int g = 0; g < wordWithDeffis[k].length(); g++) {
-//                                    stars += "*";
-//                                }
-//                                word.append(stars);
-//                                word.append("-"); // добавляем символ
-//                                if(i == allTextArray.length - 1){ // если конец текста
-//                                    break;
-//                                }
-//                                wordDef.setLength(0);
-//                                checkWordWithDeffis = true;
-//                            }
-//                        }
-//                        if (!checkWordWithDeffis){ // если слово не содержится в obsence
-//                            word.append(wordDef);
-//                            if(i == allTextArray.length - 1){
-//                                break;
-//                            }
-//                            word.append(' ');
-//                        }
-//                        wordDef.setLength(0);
-//                    }
-//
-//                    continue;
-//                }
-                //проверить наличие символов в конце слова из массива allTextArray,
-                // и если есть, то записываем его в строку charStr
-                // получаем слова без символов - делаем replace символа на ""
-                for (Character c : allTextArray[i].toCharArray()) {
-                    if (!Character.isAlphabetic(c)) {
-                        charStr.append(c);
-                        String symbol = c.toString();
-                        allTextArray[i] = allTextArray[i].replace(symbol, "");
-                    }
+            StringBuilder stringBuilder = getAllTextAsStringBuilder(scanner);
+            String [] allWords = convertStringToWordArray(stringBuilder);
+            for (int i = 0; i < allWords.length; i++) {
+                String symbolsInWord = getEndingSymbols(allWords[i]);
+                String originalWord = getWordWithoutEndingSymbols(allWords[i]);
+                Boolean isCensored = compareWithCensor(obscene, originalWord);
+                if (isCensored) {
+                    allWords[i] = writeStars(originalWord);
+                    allWords[i] += symbolsInWord;
+                }
+                if (allWords[i].contains("-")){
+                    allWords[i] = wordsWithDefis(allWords[i]);
                 }
 
-                boolean checkObsence = false; // для проверки, было ли слово в obsence
-                for (int j = 0; j < obscene.length; j++) { // проверяем слово из файла на наличие его в массиве obsence
-                    if (allTextArray[i].equals(obscene[j])){ // если есть
-                        String stars = "";
-                        for (int k = 0; k < allTextArray[i].length(); k++) {
-                            stars += "*";
-                        }
-                        word.append(stars);
-                        word.append(charStr); // добавляем символ
-                        if(i == allTextArray.length - 1){ // если конец текста
-                            break;
-                        }
-                        word.append(' ');
-                        checkObsence = true;
-                    }
-                }
-                if (!checkObsence){ // если слово не содержится в obsence
-                    word.append(bufferWord);
-                    if(i == allTextArray.length - 1){
-                        break;
-                    }
-                    word.append(' ');
-                }
-                charStr.setLength(0); // очищаем строку с символами для новой итерации
             }
+            String finalText = String.join(" ", allWords);
             reader.close();
             FileWriter fileWriter = new FileWriter(inoutFileName);
-            String textStr = word.toString();
-            fileWriter.write(textStr);
+            fileWriter.write(finalText);
             fileWriter.close();
-
         } catch (Exception e){
-            throw new CensorException(e.getMessage(), inoutFileName);
+            throw new Censor.CensorException(e.getMessage(), inoutFileName);
         }
     }
+
 
     public static void main(String[] args) throws IOException, CensorException {
         String[] censor = {"two", "storey", "write", "day", "count"};
