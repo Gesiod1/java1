@@ -107,6 +107,7 @@ public class Censor {
                 }
                 if (allWords[i].contains("-")){
                     allWords[i] = wordsWithDefis(allWords[i]);
+                    allWords[i] += symbolsInWord;
                 }
 
             }
