@@ -77,15 +77,12 @@ public class Censor {
         return stars;
     }
 
-    private static String wordsWithDefis(String word){
+    private static String wordsWithHyphen(String word, String[] obscene){
          String[] splitWords = word.split("-");
         for (int i = 0; i < splitWords.length; i++) {
-            String originalWord = getWordWithoutEndingSymbols(splitWords[i]);
-            Boolean isCensored = compareWithCensor(splitWords, originalWord);
+            Boolean isCensored = compareWithCensor(obscene, splitWords[i]);
             if (isCensored) {
-                splitWords[i] = writeStars(originalWord);
-            } else {
-                splitWords[i] = originalWord;
+                splitWords[i] = writeStars(splitWords[i]);
             }
         }
         return String.join("-", splitWords);
@@ -100,16 +97,15 @@ public class Censor {
             for (int i = 0; i < allWords.length; i++) {
                 String symbolsInWord = getEndingSymbols(allWords[i]);
                 String originalWord = getWordWithoutEndingSymbols(allWords[i]);
+                if (originalWord.contains("-")){
+                    originalWord = wordsWithHyphen(originalWord, obscene);
+                    allWords[i] = originalWord + symbolsInWord;
+                }
                 Boolean isCensored = compareWithCensor(obscene, originalWord);
                 if (isCensored) {
                     allWords[i] = writeStars(originalWord);
                     allWords[i] += symbolsInWord;
                 }
-                if (allWords[i].contains("-")){
-                    allWords[i] = wordsWithDefis(allWords[i]);
-                    allWords[i] += symbolsInWord;
-                }
-
             }
             String finalText = String.join(" ", allWords);
             reader.close();
