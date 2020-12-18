@@ -30,7 +30,7 @@ public class Creator {
 
     public static Collection<Integer> fill3(int n){
         List<Integer> list = new ArrayList();
-        for (int i = 0; list.size()/3 <= n; i++) {
+        for (int i = 0; list.size()/3 < n; i++) {
             if (i%3 == 0 || i == 0){
                 list.add(i);
                 list.add(i*i);
