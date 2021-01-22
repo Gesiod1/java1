@@ -111,9 +111,8 @@ public class Finder {
                 if (temporaryCollection.size() == 0){
                     temporaryCollection.add(arrayCollection.get(i));
                 }
-                temporaryCollection.add(arrayCollection.get(i));
+                temporaryCollection.add(arrayCollection.get(i+1));
                 if (i == arrayCollection.size() - 2) {
-                    temporaryCollection.add(arrayCollection.get(i + 1));
                     if (finalCollection.size() < temporaryCollection.size()) {
                         finalCollection.clear();
                         for (int k = 0; k < temporaryCollection.size(); k++) {
@@ -122,9 +121,6 @@ public class Finder {
                     }
                 }
             } else {
-                if (finalCollection.size() == 0){
-                    finalCollection.add(arrayCollection.get(i));
-                }
                 if (finalCollection.size() < temporaryCollection.size()) {
                     finalCollection.clear();
                     for (int j = 0; j < temporaryCollection.size(); j++) {
@@ -143,7 +139,7 @@ public class Finder {
 //        System.out.println(findMinSumPair(list));
 //        System.out.println(findLocalMax(list));
 
-        Collection<String> test1 = new ArrayList<>(Arrays.asList(new String[]{"В","Б","Г","Г","Г","Б","Г","Г","А","Г","Б","В","В","Б","Г","В","В"}));
+        Collection<String> test1 = new ArrayList<>(Arrays.asList(new String[]{"В","Б","Г","Г","Г","Г","Г","Г","Б","Г","Г","А","Г","Б","В","В","Б","Г","В","В","В","В","В","В"}));
         System.out.println(findSimilar(test1));
 
 
