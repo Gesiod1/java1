@@ -6,26 +6,25 @@ public class Finder {
 
     //задание 1 - найти 2 соседних числа в коллекции сумма которых минимальна, вернуть коллекцию, содержащую индексы этих чисел
     //метод сравнения для findMinSumPair
-    private static List<Integer> compareArrayElements (Object[] elemenetsInArray){
+    private static List<Integer> compareArrayElements (List<Integer> elemenetsInArray){
         List<Integer> indexMinElemetns = new ArrayList();
         //сумма первых двух элементов
-        int minSum = Integer.sum((int) elemenetsInArray[0], (int) elemenetsInArray[1]) ;
+        int minSum = Integer.sum((int) elemenetsInArray.get(0), (int) elemenetsInArray.get(1)) ;
         //ищем минимальную сумму через сравнение
-        for (int i = 1; i < elemenetsInArray.length - 1; i++) {
-           if (minSum > ((int) elemenetsInArray[i]) + ((int) elemenetsInArray[i + 1])){
+        for (int i = 1; i < elemenetsInArray.size() - 1; i++) {
+           if (minSum > (elemenetsInArray.get(i) + (elemenetsInArray.get(i+1)))){
               if (!indexMinElemetns.isEmpty()){
-                  indexMinElemetns.remove(0);
-                  indexMinElemetns.remove(0);
+                  indexMinElemetns.clear();
               }
-              indexMinElemetns.add(0, i);
-              indexMinElemetns.add(1, i + 1);
+              indexMinElemetns.add(i -1);
+              indexMinElemetns.add(i);
            }
         }
         return  indexMinElemetns;
     }
 
     public static Collection<Integer> findMinSumPair(Collection<Integer> numbers){
-        Object[] numbersArray = numbers.toArray();
+        List<Integer> numbersArray = (ArrayList<Integer>) numbers;
         List<Integer> indexMinElements = compareArrayElements(numbersArray);
         return indexMinElements;
     }
@@ -132,17 +131,17 @@ public class Finder {
                 temporaryCollection.clear();
             }
         }
-        String result = "<" + finalCollection.get(0) + ">:<" + finalCollection.size() + ">";
+        String result = finalCollection.get(0) + ":" + finalCollection.size();
         return result;
     }
 
     public static void main(String[] args) {
-//        List<Integer> list = new ArrayList<>(Arrays.asList(new Integer[]{5, 12, 3, 1, 2, 4}));
-//        System.out.println(findSequence(list));
+        List<Integer> list = new ArrayList<>(Arrays.asList(new Integer[]{5, 12, 4, -1, -2, 8}));
+        System.out.println(findMinSumPair(list));
 
-        Collection<String> test1 = new ArrayList<>(Arrays.asList(new String[]{"a", "a", "b", "c", "a", "c", "c", "d", "d", "d"}));
+//        Collection<String> test1 = new ArrayList<>(Arrays.asList(new String[]{"a", "a", "b", "c", "a", "c", "c", "d", "d", "d"}));
 //        System.out.println(findSimilar(test1));
-        System.out.println(findSimilar(test1));
+//        System.out.println(findSimilar(test1));
 
     }
 }
