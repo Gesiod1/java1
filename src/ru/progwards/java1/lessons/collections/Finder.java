@@ -16,8 +16,8 @@ public class Finder {
               if (!indexMinElemetns.isEmpty()){
                   indexMinElemetns.clear();
               }
-              indexMinElemetns.add(i -1);
               indexMinElemetns.add(i);
+              indexMinElemetns.add(i+1);
            }
         }
         return  indexMinElemetns;
