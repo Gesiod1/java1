@@ -6,34 +6,31 @@ public class Finder {
 
     //задание 1 - найти 2 соседних числа в коллекции сумма которых минимальна, вернуть коллекцию, содержащую индексы этих чисел
     //метод сравнения для findMinSumPair
-    private static List<Integer> compareArrayElements (List<Integer> elemenetsInArray){
+    public static Collection<Integer> findMinSumPair(Collection<Integer> numbers){
+        List<Integer> elemenetsInArray = (ArrayList<Integer>) numbers;
         List<Integer> indexMinElemetns = new ArrayList();
-        //сумма первых двух элементов
-        int minSum = Integer.sum((int) elemenetsInArray.get(0), (int) elemenetsInArray.get(1)) ;
-        //ищем минимальную сумму через сравнение
-        for (int i = 1; i < elemenetsInArray.size() - 1; i++) {
-           if (minSum > (elemenetsInArray.get(i) + (elemenetsInArray.get(i+1)))){
-              if (!indexMinElemetns.isEmpty()){
-                  indexMinElemetns.clear();
-              }
-              indexMinElemetns.add(i);
-              indexMinElemetns.add(i+1);
-           }
+        int minSum = Integer.sum(elemenetsInArray.get(0), elemenetsInArray.get(1));
+        int temp = Integer.sum(elemenetsInArray.get(0), elemenetsInArray.get(1));
+        for (int i = 0; i < elemenetsInArray.size() - 1; i++) {
+            temp = Integer.sum(elemenetsInArray.get(i), elemenetsInArray.get(i + 1));
+            if (minSum > temp){
+                if (!indexMinElemetns.isEmpty()){
+                    indexMinElemetns.clear();
+                }
+                indexMinElemetns.add(i);
+                indexMinElemetns.add(i+1);
+                minSum = temp;
+            }
         }
         return  indexMinElemetns;
     }
 
-    public static Collection<Integer> findMinSumPair(Collection<Integer> numbers){
-        List<Integer> numbersArray = (ArrayList<Integer>) numbers;
-        List<Integer> indexMinElements = compareArrayElements(numbersArray);
-        return indexMinElements;
-    }
     // задание 2 - найти локальные максимумы - числа, которые больше соседа справа и слева
     public static Collection<Integer> findLocalMax(Collection<Integer> numbers){
-        List<Integer> copyNumbers = (List<Integer>) numbers; // для использования метода get
+        ArrayList<Integer> copyNumbers = new ArrayList<Integer>(numbers); // для использования метода get
         List<Integer> localMacCollection = new ArrayList();
         for (int i = 1; i < numbers.size() - 1; i++) {
-            if ((copyNumbers.get(i).equals(copyNumbers.get(i - 1)) && copyNumbers.get(i).equals(copyNumbers.get(i + 1)))){
+            if ((copyNumbers.get(i) > (copyNumbers.get(i - 1)) && copyNumbers.get(i) > (copyNumbers.get(i + 1)))){
                 localMacCollection.add(copyNumbers.get(i));
             }
         }
@@ -78,7 +75,7 @@ public class Finder {
 //                if (repeatMore.size() == 0){
 //                    repeatMore.add(namesList.get(i));
 //                }
-//                repeatMore.add(namesList.get(i + 1));
+////                repeatMore.add(namesList.get(i + 1));
 //                if (namesList.size() - 2 == i){
 //                    repeatMore.add(namesList.get(i + 1));
 //                    if (repeat.size() < repeatMore.size()){
@@ -111,6 +108,9 @@ public class Finder {
         ArrayList<String> finalCollection = new ArrayList<>();
         for (int i = 0; i < arrayCollection.size() - 1; i++) {
             if (arrayCollection.get(i).equals(arrayCollection.get(i + 1))) {
+                if (temporaryCollection.size() == 0){
+                    temporaryCollection.add(arrayCollection.get(i));
+                }
                 temporaryCollection.add(arrayCollection.get(i));
                 if (i == arrayCollection.size() - 2) {
                     temporaryCollection.add(arrayCollection.get(i + 1));
@@ -122,6 +122,9 @@ public class Finder {
                     }
                 }
             } else {
+                if (finalCollection.size() == 0){
+                    finalCollection.add(arrayCollection.get(i));
+                }
                 if (finalCollection.size() < temporaryCollection.size()) {
                     finalCollection.clear();
                     for (int j = 0; j < temporaryCollection.size(); j++) {
@@ -136,12 +139,13 @@ public class Finder {
     }
 
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>(Arrays.asList(new Integer[]{5, 12, 4, -1, -2, 8}));
-        System.out.println(findMinSumPair(list));
+//        List<Integer> list = new ArrayList<>(Arrays.asList(new Integer[]{5, 12, 3, 7,-1, -2, 8}));
+//        System.out.println(findMinSumPair(list));
+//        System.out.println(findLocalMax(list));
 
-//        Collection<String> test1 = new ArrayList<>(Arrays.asList(new String[]{"a", "a", "b", "c", "a", "c", "c", "d", "d", "d"}));
-//        System.out.println(findSimilar(test1));
-//        System.out.println(findSimilar(test1));
+        Collection<String> test1 = new ArrayList<>(Arrays.asList(new String[]{"В","Б","Г","Г","Г","Б","Г","Г","А","Г","Б","В","В","Б","Г","В","В"}));
+        System.out.println(findSimilar(test1));
+
 
     }
 }
