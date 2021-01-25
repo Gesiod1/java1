@@ -16,9 +16,9 @@ public class ArrayIterator<T> implements Iterator<T>  {
     @Override
     public boolean hasNext() {
          if (this.array.length == 0){
-             return true;
+             return false;
          }
-         return false;
+         return true;
     }
 
     @Override
