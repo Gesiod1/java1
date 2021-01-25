@@ -18,12 +18,12 @@ public class ArrayIterator<T> implements Iterator<T>  {
          if (this.array.length == 0){
              return false;
          }
-         return true;
+         return index != this.array.length - 1;
     }
 
     @Override
     public T next() throws NoSuchElementException{
-        if (array.length <=0){
+        if (this.array.length <= 0){
             throw new NoSuchElementException("No more elements in array!");
         }
         if (index == 0){
@@ -32,7 +32,7 @@ public class ArrayIterator<T> implements Iterator<T>  {
         if (index + 1 == array.length - 1){
             return array[++index];
         }
-        return  index + 1 < array.length + 1 ? array[++index]: null;
+        return  index + 1 < array.length + 1 ? array[++index] : null;
     }
 
 }
