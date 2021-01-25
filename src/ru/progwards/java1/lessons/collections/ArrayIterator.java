@@ -30,7 +30,7 @@ public class ArrayIterator<T> implements Iterator<T>  {
             return array[index++];
         }
         if (index + 1 == array.length - 1){
-            return array[++index];
+            return array[++index - 1];
         }
         return  index + 1 < array.length + 1 ? array[++index] : null;
     }
