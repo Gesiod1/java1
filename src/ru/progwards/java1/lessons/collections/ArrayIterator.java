@@ -29,8 +29,8 @@ public class ArrayIterator<T> implements Iterator<T>  {
         if (index == 0){
             return array[index++];
         }
-        if (index + 1 == array.length - 1){
-            return array[++index - 1];
+        if (index + 1 == array.length){
+            return array[++index];
         }
         return  index + 1 < array.length + 1 ? array[++index] : null;
     }
