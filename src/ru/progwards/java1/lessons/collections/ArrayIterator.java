@@ -18,7 +18,7 @@ public class ArrayIterator<T> implements Iterator<T>  {
          if (this.array.length == 0){
              return false;
          }
-         return index != this.array.length - 1;
+         return index != this.array.length;
     }
 
     @Override
