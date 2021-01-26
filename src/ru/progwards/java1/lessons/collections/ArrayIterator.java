@@ -26,13 +26,7 @@ public class ArrayIterator<T> implements Iterator<T>  {
         if (this.array.length <= 0){
             throw new NoSuchElementException("No more elements in array!");
         }
-        if (index == 0){
-            return array[index++];
-        }
-        if (index + 1 == array.length){
-            return array[++index - 1];
-        }
-        return  index + 1 < array.length + 1 ? array[++index] : null;
+        return  index < array.length ? array[index++] : null;
     }
 
 }
