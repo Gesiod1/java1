@@ -37,9 +37,9 @@ public class ProductAnalytics {
 
     //2.15 - товары из products, которых нет ни в одном магазине
     public Set<Product> notExistInShops(){
-        Set<Product> forExistInAll = existInAll();
+        Set<Product> ExistAtListInOneSet = existAtListInOne();
         Set<Product> result = new HashSet<>(products);
-        result.retainAll(forExistInAll);
+        result.removeAll(ExistAtListInOneSet);
         return result;
     }
 
@@ -63,7 +63,8 @@ public class ProductAnalytics {
         }
         ProductAnalytics productAnalytics = new ProductAnalytics(allShops, allProducts);
         System.out.println(productAnalytics.existInAll());
-//        System.out.println(productAnalytics.existAtListInOne());
+        System.out.println(productAnalytics.existAtListInOne());
+        System.out.println(productAnalytics.notExistInShops());
 
 
     }
