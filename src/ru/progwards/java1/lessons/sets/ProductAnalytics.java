@@ -15,21 +15,26 @@ public class ProductAnalytics {
         this.products = products;
     }
 
-    //товары из products, которые имеются во всех магазинах
+    //2.13 - товары из products, которые имеются во всех магазинах
     public Set<Product> existInAll(){
-        // создаем множество из списка всех товаров
-        Set<Product> result = new TreeSet<>(new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return 0;
-            }
-        });
-        // проходим в цикле по всем магазинам
+        Set<Product> result = new HashSet<>(products);
         for (Shop shop: shops) {
              Set<Product> products = (Set<Product>) shop.getProducts();
              result.retainAll(products);
         }
         return result;
+    }
+
+    //2.14 - товары из products, которые имеются хотя бы в одном магазине
+    public Set<Product> existAtListInOne(){
+        Set<Product> result = new HashSet<>();
+        for (Shop shop: shops) {
+            Set<Product> allProducts = new HashSet<>(products);
+            Set<Product> products = (Set<Product>) shop.getProducts();
+            allProducts.retainAll(products);
+            result.addAll(allProducts);
+        }
+        return  result;
     }
 
     public static void main(String[] args) {
@@ -47,6 +52,7 @@ public class ProductAnalytics {
         }
         ProductAnalytics productAnalytics = new ProductAnalytics(allShops, allProducts);
         System.out.println(productAnalytics.existInAll());
+        System.out.println(productAnalytics.existAtListInOne());
 
 
     }
