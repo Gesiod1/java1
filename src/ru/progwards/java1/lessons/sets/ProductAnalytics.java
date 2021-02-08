@@ -10,7 +10,7 @@ public class ProductAnalytics {
     // но так же тут могут быть и товары, которых нет в магазинах
     private List<Product> products;
 
-    public ProductAnalytics(List<Shop> shops, List<Product> products) {
+    public ProductAnalytics(List<Product> products, List<Shop> shops) {
         this.shops = shops;
         this.products = products;
     }
@@ -73,7 +73,7 @@ public class ProductAnalytics {
             }
             allShops.add(new Shop(products));
         }
-        ProductAnalytics productAnalytics = new ProductAnalytics(allShops, allProducts);
+        ProductAnalytics productAnalytics = new ProductAnalytics(allProducts, allShops);
         System.out.println(productAnalytics.existInAll());
         System.out.println(productAnalytics.existAtListInOne());
         System.out.println(productAnalytics.notExistInShops());
