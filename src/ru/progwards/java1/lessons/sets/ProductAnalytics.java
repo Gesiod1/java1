@@ -50,9 +50,9 @@ public class ProductAnalytics {
         // и делать removeAll полученных элементов из result
         for (int i = 0; i < shops.size() - 1; i++) {
             for (int j = 0; j < shops.size(); j++) {
-                if (i == j){
-                    continue;
-                }
+//                if (i == j){
+//                    continue;
+//                }
                 (shops.get(i).getProducts()).retainAll(shops.get(j).getProducts());
                 result.removeAll(shops.get(i).getProducts());
             }
@@ -77,8 +77,7 @@ public class ProductAnalytics {
         System.out.println(productAnalytics.existInAll());
         System.out.println(productAnalytics.existAtListInOne());
         System.out.println(productAnalytics.notExistInShops());
-
-
+        System.out.println(productAnalytics.existOnlyInOne());
     }
 
 }
