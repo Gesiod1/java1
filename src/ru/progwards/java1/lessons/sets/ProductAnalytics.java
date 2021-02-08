@@ -50,9 +50,6 @@ public class ProductAnalytics {
         // и делать removeAll полученных элементов из result
         for (int i = 0; i < shops.size(); i++) {
             for (int j = 0; j < shops.size(); j++) {
-                if (i == j){
-                    continue;
-                }
                 (shops.get(i).getProducts()).retainAll(shops.get(j).getProducts());
                 result.removeAll(shops.get(i).getProducts());
             }
