@@ -14,8 +14,11 @@ public class LettersInFile {
         StringBuilder resultOnString = new StringBuilder();
         char [] wordSymbols = fileName.toCharArray();
         for (int i = 0; i < wordSymbols.length; i++) {
-            if (Character.isAlphabetic(wordSymbols[i])) {
-                result.add(String.valueOf(wordSymbols[i]));
+            if (Character.isAlphabetic(wordSymbols[i]) && Character.isUpperCase(wordSymbols[i])) {
+                result.add(String.valueOf(wordSymbols[i]).toUpperCase());
+            }
+            if (Character.isAlphabetic(wordSymbols[i]) && Character.isLowerCase(wordSymbols[i])) {
+                result.add(String.valueOf(wordSymbols[i]).toLowerCase());
             }
         }
         for (String str: result) {
