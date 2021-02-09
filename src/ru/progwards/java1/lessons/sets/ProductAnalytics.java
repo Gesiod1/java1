@@ -47,8 +47,8 @@ public class ProductAnalytics {
 
     //2.16 - товары из products, которые есть только в одном магазине
     public Set<Product> existOnlyInOne(){
-//        Set<Product> result = existAtListInOne();
         Set<Product> result = new HashSet<>();
+        //        Set<Product> result = existAtListInOne();
         // получить пересечение множеств каждого shop  с каждым другим shop
         // и делать removeAll полученных элементов из списка товаров, которые имеются хотя бы в одном магазине
 //        for (int i = 0; i < shops.size(); i++) {
