@@ -82,7 +82,7 @@ public class CollectionsSort {
         startTime = new Date().getTime();
         collSort(testCollSort);
 //        System. out.println( "collSort: " + (new Date().getTime() - startTime));
-        Collection<String> result = new ArrayList<>(List.of("collSort", "mySort", "minSort"));
+        Collection<String> result = new ArrayList<>(List.of("collSort", "minSort", "mySort"));
         return result;
     }
 
