@@ -17,14 +17,22 @@ public class CollectionsSort {
             dataList.add(count, i);
             count++;
         }
+        data.removeAll(data);
         for (int i = 0; i < dataList.size(); i++) {
             for (int j = 0; j < dataList.size(); j++) {
-                if (j < i){
+                if (dataList.get(j) < dataList.get(i)){
                     Collections.swap(dataList, dataList.get(j), dataList.get(i));
                 }
             }
         }
-        data.removeAll(data);
-        Collections.addAll(data, dataList);
+        for (Integer i: dataList) {
+            data.add(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        Collection<Integer> test = new ArrayList<>(List.of(4, 9, 5, 1, 2, 2, 3));
+        mySort(test);
+        System.out.println(test);
     }
 }
