@@ -20,7 +20,7 @@ public class StackCalc {
     }
     //3.2 public double pop() - взять (убрать) значение с вершины стека
     public double pop(){
-           return deque.pollLast();
+           return deque.poll();
     }
     //3.3 public void add() - сложить 2 верхних значения на стеке,
     // результат положить на стек. В итогу в стеке должно быть на один элемент меньше
@@ -51,5 +51,15 @@ public class StackCalc {
         deque.push(num2 / num1);
     }
 
+    public static void main(String[] args) {
+//        StackCalc stackCalc = new StackCalc();
+//        Deque<StackCalc> doubleDeque = new ArrayDeque<>();
+//        stackCalc.push(3.0);
+//        stackCalc.push(1.0);
+//        stackCalc.push(8.0);
+//        stackCalc.add();
+//        System.out.println(stackCalc.pop());
+//        System.out.println(stackCalc.pop());
+    }
 
 }
