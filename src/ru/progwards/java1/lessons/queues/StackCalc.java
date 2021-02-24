@@ -25,29 +25,29 @@ public class StackCalc {
     //3.3 public void add() - сложить 2 верхних значения на стеке,
     // результат положить на стек. В итогу в стеке должно быть на один элемент меньше
     public void add(){
-        double num1 = deque.pop();
-        double num2 = deque.pop();
+        double num1 = deque.pollLast();
+        double num2 = deque.pollLast();
         deque.push(num1 + num2);
     }
     //3.4 public void sub() - вычесть верхнее значение на стеке, из следующего по глубине,
     // результат положить на стек. В итоге в стеке должно быть на один элемент меньше
     public void sub(){
-        double num1 = deque.pop();
-        double num2 = deque.pop();
+        double num1 = deque.pollLast();
+        double num2 = deque.pollLast();
         deque.push(num2 - num1);
     }
     //3.5 public void mul() - умножить 2 верхних значения на стеке,
     // результат положить на стек. В итогу в стеке должно быть на один элемент меньше
     public void mul(){
-        double num1 = deque.pop();
-        double num2 = deque.pop();
+        double num1 = deque.pollLast();
+        double num2 = deque.pollLast();
         deque.push(num2 * num1);
     }
     //3.6 public void div() - поделить на верхнее значение на стеке, следующее по глубине,
     // результат положить на стек. В итоге в стеке должно быть на один элемент меньше
     public void div(){
-        double num1 = deque.pop();
-        double num2 = deque.pop();
+        double num1 = deque.pollLast();
+        double num2 = deque.pollLast();
         deque.push(num2 / num1);
     }
 
