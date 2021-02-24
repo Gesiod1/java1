@@ -16,7 +16,7 @@ public class StackCalc {
 
     //3.1 public void push(double value) - положить value на вершину стека
     public void push(double value){
-        deque.offer(value);
+        deque.offerLast(value);
     }
     //3.2 public double pop() - взять (убрать) значение с вершины стека
     public double pop(){
