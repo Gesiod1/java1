@@ -16,11 +16,11 @@ public class StackCalc {
 
     //3.1 public void push(double value) - положить value на вершину стека
     public void push(double value){
-        deque.offerLast(value);
+        deque.offer(value);
     }
     //3.2 public double pop() - взять (убрать) значение с вершины стека
     public double pop(){
-           return deque.poll();
+           return deque.pollLast();
     }
     //3.3 public void add() - сложить 2 верхних значения на стеке,
     // результат положить на стек. В итогу в стеке должно быть на один элемент меньше
