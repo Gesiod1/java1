@@ -8,6 +8,8 @@ import java.util.TreeMap;
 public class FiboMapCache {
     private Map<Integer, BigDecimal> fiboCache = new TreeMap<>();
     private boolean cacheOn;
+    ;
+
 
     //При cacheOn = true кэш работает, при cacheOn = false - выключен
     public FiboMapCache(boolean cacheOn){
@@ -60,14 +62,21 @@ public class FiboMapCache {
         for (int i = 1; i <= 1000; i++) {
             fiboMapCacheOn.fiboNumber(i);
         }
+//        for (int i = 0; i < 5000000; i++) {
+//            fiboMapCacheOn.fiboCache.get(Math.random() < 1000);
+//        }
         System. out.println( "fiboNumber cacheOn=true время выполнения " + (new Date().getTime() - startTime));
         FiboMapCache fiboMapCacheOff = new FiboMapCache(false);
         startTime = new Date().getTime();
         for (int i = 1; i <= 1000; i++) {
-            fiboMapCacheOn.fiboNumber(i);
+            fiboMapCacheOff.fiboNumber(i);
         }
+//        for (int i = 0; i < 5000000; i++) {
+//            fiboMapCacheOff.fiboCache.get(Math.random() < 1000);
+//        }
         System. out.println( "fiboNumber cacheOn=false время выполнения " + (new Date().getTime() - startTime));
     }
+
 
     public static void main(String[] args) {
         test();
