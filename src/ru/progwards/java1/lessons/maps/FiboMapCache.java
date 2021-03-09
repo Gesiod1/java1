@@ -3,9 +3,10 @@ package ru.progwards.java1.lessons.maps;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class FiboMapCache {
-    private Map<Integer, BigDecimal> fiboCache;
+    private Map<Integer, BigDecimal> fiboCache = new TreeMap<>();
     private boolean cacheOn;
 
     //При cacheOn = true кэш работает, при cacheOn = false - выключен
