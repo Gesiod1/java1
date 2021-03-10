@@ -24,7 +24,7 @@ public class FiboMapCache {
         BigDecimal f0 = new BigDecimal(0);
         BigDecimal f1 = new BigDecimal(1);
         BigDecimal temp = new BigDecimal(0);
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             temp = f1;
             f1 = f1.add(f0);
             f0 = temp;
