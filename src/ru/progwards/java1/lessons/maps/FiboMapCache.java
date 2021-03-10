@@ -50,7 +50,7 @@ public class FiboMapCache {
             return this.fibo(n);
         }
     }
-    public void clearCache(){
+    public void clearCahe(){
         fiboCache.clear();
     }
     // тест для расчета чисел Фибоначчи от n = 1 до 1000 включительно и замерить разницу во времени
@@ -66,7 +66,7 @@ public class FiboMapCache {
             fiboMapCacheOn.fiboNumber(i);
         }
         System. out.println( "fiboNumber cacheOn=true время выполнения " + (new Date().getTime() - startTime));
-        fiboMapCacheOn.clearCache();
+        fiboMapCacheOn.clearCahe();
         FiboMapCache fiboMapCacheOff = new FiboMapCache(false);
         startTime = new Date().getTime();
         for (int i = 1; i <= 1000; i++) {
