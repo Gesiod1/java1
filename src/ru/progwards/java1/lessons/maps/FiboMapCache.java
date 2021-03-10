@@ -57,14 +57,14 @@ public class FiboMapCache {
     // с on = true и on = false, результат вывести на экран в формате "fiboNumber cacheOn=???
     // время выполнения ???" для cacheOn=true и cacheOn=false, вместо ??? вывести реальные значения в мсек.
     public static void test(){
+//        int min = 1;
+//        int max = 1000;
+//        int rnd = min + (int)(Math.random() * ((max - min) + 1));
         FiboMapCache fiboMapCacheOn = new FiboMapCache(true);
         var startTime = new Date().getTime();
         for (int i = 1; i <= 1000; i++) {
             fiboMapCacheOn.fiboNumber(i);
         }
-//        for (int i = 0; i < 5000000; i++) {
-//            fiboMapCacheOn.fiboCache.get(Math.random() < 1000);
-//        }
         System. out.println( "fiboNumber cacheOn=true время выполнения " + (new Date().getTime() - startTime));
         fiboMapCacheOn.clearCache();
         FiboMapCache fiboMapCacheOff = new FiboMapCache(false);
@@ -72,16 +72,12 @@ public class FiboMapCache {
         for (int i = 1; i <= 1000; i++) {
             fiboMapCacheOff.fiboNumber(i);
         }
-//        for (int i = 0; i < 5000000; i++) {
-//            fiboMapCacheOff.fiboCache.get(Math.random() < 1000);
-//        }
         System. out.println( "fiboNumber cacheOn=false время выполнения " + (new Date().getTime() - startTime));
     }
 
 
     public static void main(String[] args) {
         test();
-
 
     }
 }
