@@ -8,24 +8,28 @@ import java.util.Scanner;
 
 //Реализовать класс, подсчитывающий частоту использования слов и букв в словах на основе текстов.
 public class UsageFrequency {
-    private Map<String, Integer> mapForWords = new HashMap<>();
+    StringBuilder strForLetters = new StringBuilder();
 
     //загрузить содержимое файла
     public void processFile(String fileName) throws FileNotFoundException {
         FileReader fileReader = new FileReader(fileName);
         Scanner scanner = new Scanner(fileReader);
-
+        while (scanner.hasNextLine()){
+            strForLetters.append(scanner.nextLine());
+        }
     }
 
     //вернуть Map, который содержит все найденные буквы и цифры, и количество раз,
     // которое встретился каждый искомый символ. Знаки препинания, такие как “.,!? @” и др не учитывать.
     public Map<Character, Integer> getLetters() throws FileNotFoundException {
         Map<Character, Integer> mapForLetters = new HashMap<>();
+        String numbers = "0123456789";
         UsageFrequency usageFrequency = new UsageFrequency();
         usageFrequency.processFile("wiki.train.tokens");
-        while (scanner.hasNext()){
-            if (Character.isAlphabetic(scanner.next().charAt(0)) || scanner.hasNextInt()){
-                char ch = scanner.next().charAt(0);
+        char[] letters = strForLetters.toString().toCharArray();
+        for (int i = 0; i < letters.length; i++) {
+            if (Character.isAlphabetic(letters[i]) || numbers.contains(String.valueOf(letters[i]))){
+                char ch = letters[i];
                 if (mapForLetters.get(ch) == null){
                     mapForLetters.put(ch, 1);
                 } else {
@@ -36,5 +40,10 @@ public class UsageFrequency {
             }
         }
         return mapForLetters;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        UsageFrequency usageFrequency = new UsageFrequency();
+        System.out.println(usageFrequency.getLetters());
     }
 }
