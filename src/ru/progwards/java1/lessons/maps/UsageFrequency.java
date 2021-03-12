@@ -24,8 +24,6 @@ public class UsageFrequency {
     public Map<Character, Integer> getLetters() throws FileNotFoundException {
         Map<Character, Integer> mapForLetters = new HashMap<>();
         String numbers = "0123456789";
-        UsageFrequency usageFrequency = new UsageFrequency();
-        usageFrequency.processFile("wiki.train.tokens");
         char[] letters = strForLetters.toString().toCharArray();
         for (int i = 0; i < letters.length; i++) {
             if (Character.isAlphabetic(letters[i]) || numbers.contains(String.valueOf(letters[i]))){
@@ -42,8 +40,45 @@ public class UsageFrequency {
         return mapForLetters;
     }
 
+    //вернуть Map, который содержит все найденные слова и количество раз, которое каждое слово встретилось.
+    // Знаки препинания, такие как “.,!? @” и др являются разделителями.
+    private static String[] convertStringToWordArray(StringBuilder stringBuilder) {
+        String allText = stringBuilder.toString();
+        return allText.split(" ");
+    }
+
+    private static String getWordWithoutEndingSymbols(String word) {
+        Integer amountOfSymbols = 0;
+        char [] wordSymbols = word.toCharArray();
+        for (int i = wordSymbols.length - 1; i > 0; i--) {
+            if (!Character.isAlphabetic(wordSymbols[i])) {
+                amountOfSymbols++;
+            } else {
+                break;
+            }
+        }
+        return word.substring(0, wordSymbols.length - amountOfSymbols);
+    }
+
+    public Map<String, Integer> getWords(){
+        Map<String, Integer> mapForWords = new HashMap<>();
+        String [] allWords = convertStringToWordArray(strForLetters);
+        for (int i = 0; i < allWords.length; i++) {
+            if (allWords[i] == null){
+                mapForWords.put(allWords[i], 1);
+            } else {
+                int oldValue = mapForWords.get(allWords[i]);
+                int newValue = oldValue + 1;
+                mapForWords.replace(allWords[i], oldValue, newValue);
+            }
+        }
+        return mapForWords;
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         UsageFrequency usageFrequency = new UsageFrequency();
-        System.out.println(usageFrequency.getLetters());
+        usageFrequency.processFile("wiki.train.tokens");
+//        System.out.println(usageFrequency.getLetters());
+        System.out.println(usageFrequency.getWords());
     }
 }
