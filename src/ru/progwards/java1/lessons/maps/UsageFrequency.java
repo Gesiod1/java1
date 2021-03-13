@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 //Реализовать класс, подсчитывающий частоту использования слов и букв в словах на основе текстов.
 public class UsageFrequency {
@@ -22,7 +23,7 @@ public class UsageFrequency {
     //вернуть Map, который содержит все найденные буквы и цифры, и количество раз,
     // которое встретился каждый искомый символ. Знаки препинания, такие как “.,!? @” и др не учитывать.
     public Map<Character, Integer> getLetters() throws FileNotFoundException {
-        Map<Character, Integer> mapForLetters = new HashMap<>();
+        Map<Character, Integer> mapForLetters = new TreeMap<>();
         String numbers = "0123456789";
         char[] letters = strForLetters.toString().toCharArray();
         for (int i = 0; i < letters.length; i++) {
@@ -64,7 +65,7 @@ public class UsageFrequency {
         Map<String, Integer> mapForWords = new HashMap<>();
         String [] allWords = convertStringToWordArray(strForLetters);
         for (int i = 0; i < allWords.length; i++) {
-            if (allWords[i] == null){
+            if (mapForWords.get(allWords[i]) == null){
                 mapForWords.put(allWords[i], 1);
             } else {
                 int oldValue = mapForWords.get(allWords[i]);
@@ -77,7 +78,7 @@ public class UsageFrequency {
 
     public static void main(String[] args) throws FileNotFoundException {
         UsageFrequency usageFrequency = new UsageFrequency();
-        usageFrequency.processFile("wiki.train.tokens");
+        usageFrequency.processFile("wiki.train.tokens"); // wiki.train.tokens
 //        System.out.println(usageFrequency.getLetters());
         System.out.println(usageFrequency.getWords());
     }
