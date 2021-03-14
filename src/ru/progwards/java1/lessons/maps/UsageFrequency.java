@@ -13,10 +13,14 @@ public class UsageFrequency {
 
     //загрузить содержимое файла
     public void processFile(String fileName) throws FileNotFoundException {
-        FileReader fileReader = new FileReader(fileName);
-        Scanner scanner = new Scanner(fileReader);
-        while (scanner.hasNextLine()){
-            strForLetters.append(scanner.nextLine());
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            Scanner scanner = new Scanner(fileReader);
+            while (scanner.hasNextLine()){
+                strForLetters.append(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e){
+            System.out.println(e);
         }
     }
 
