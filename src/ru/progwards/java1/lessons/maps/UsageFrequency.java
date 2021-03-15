@@ -12,7 +12,7 @@ public class UsageFrequency {
     StringBuilder strForLetters = new StringBuilder();
 
     //загрузить содержимое файла
-    public void processFile(String fileName) throws FileNotFoundException {
+    public void processFile(String fileName) {
         try {
             FileReader fileReader = new FileReader(fileName);
             Scanner scanner = new Scanner(fileReader);
@@ -69,12 +69,13 @@ public class UsageFrequency {
         Map<String, Integer> mapForWords = new HashMap<>();
         String [] allWords = convertStringToWordArray(strForLetters);
         for (int i = 0; i < allWords.length; i++) {
-            if (mapForWords.get(allWords[i]) == null){
-                mapForWords.put(allWords[i], 1);
+            String word = getWordWithoutEndingSymbols(allWords[i]);
+            if (mapForWords.get(word) == null){
+                mapForWords.put(word, 1);
             } else {
-                int oldValue = mapForWords.get(allWords[i]);
+                int oldValue = mapForWords.get(word);
                 int newValue = oldValue + 1;
-                mapForWords.replace(allWords[i], oldValue, newValue);
+                mapForWords.replace(word, oldValue, newValue);
             }
         }
         return mapForWords;
@@ -82,7 +83,7 @@ public class UsageFrequency {
 
     public static void main(String[] args) throws FileNotFoundException {
         UsageFrequency usageFrequency = new UsageFrequency();
-        usageFrequency.processFile("wiki.train.tokens"); // wiki.train.tokens
+        usageFrequency.processFile("forRead.txt"); // wiki.train.tokens
 //        System.out.println(usageFrequency.getLetters());
         System.out.println(usageFrequency.getWords());
     }
