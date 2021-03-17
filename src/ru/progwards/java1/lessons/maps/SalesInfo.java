@@ -50,8 +50,8 @@ public class SalesInfo {
             if (sortProducts.get(productInfo[1]) == null){
                 sortProducts.put(productInfo[1], Double.parseDouble(productInfo[3]));
             } else {
-                double oldSum = sortProducts.get(productInfo[1]);
-                double newSum = oldSum + Double.parseDouble(productInfo[3]);
+                Double oldSum = sortProducts.get(productInfo[1]);
+                Double newSum = oldSum + Double.parseDouble(productInfo[3]);
                 sortProducts.replace(productInfo[1], oldSum, newSum);
             }
         }
