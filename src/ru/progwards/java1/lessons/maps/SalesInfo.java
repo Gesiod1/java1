@@ -8,7 +8,7 @@ import java.util.*;
 
 public class SalesInfo {
     Map<String, Double> sortProducts = new TreeMap<>(); /* 3.2*/
-    Map<String, AbstractMap.SimpleEntry<Double, Integer>> sortCostumers = new TreeMap<>(); /* 3.3*/
+    /* 3.3*/
 
     //3.1 - вернуть количество успешно загруженных строк.
     // Если в строке более или менее 4-x полей, или количество и сумма не преобразуются в числа - эту строку не загружаем.
@@ -60,7 +60,19 @@ public class SalesInfo {
 
     //3.3 - вернуть список покупателей, отсортированный по алфавиту.
     // В String  - ФИ, в Double - сумма всех покупок покупателя, в Integer - количество покупок
-    public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers(){
+    public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers() throws  NumberFormatException{
+        Map<String, AbstractMap.SimpleEntry<Double, Integer>> sortCostumers = new TreeMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            String [] productInfo = list.get(i).split(", ");
+            if (sortCostumers.get(productInfo[0]) == null){
+                sortCostumers.put(productInfo[0], (new AbstractMap.SimpleEntry<>((Double.parseDouble(productInfo[3])),(Integer.parseInt(productInfo[2])))));
+            } else {
+                AbstractMap.SimpleEntry<Double, Integer> simpleEntry = sortCostumers.get(productInfo[0]);
+                Double sum = simpleEntry.getKey();
+                Integer count = simpleEntry.getValue();
+                sortCostumers.put(productInfo[0], (new AbstractMap.SimpleEntry<>((Double.parseDouble(productInfo[3]) + sum),(Integer.parseInt(productInfo[2])) + count)));
+            }
+        }
         return sortCostumers;
     }
 
@@ -68,6 +80,7 @@ public class SalesInfo {
         SalesInfo salesInfo = new SalesInfo();
         System.out.println(salesInfo.loadOrders("forRead.txt"));
 //        System.out.println(salesInfo.list);
-        System.out.println(salesInfo.getGoods());
+//        System.out.println(salesInfo.getGoods());
+        System.out.println(salesInfo.getCustomers());
     }
 }
