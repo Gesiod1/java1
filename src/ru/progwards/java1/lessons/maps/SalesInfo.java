@@ -46,7 +46,7 @@ public class SalesInfo {
     // В String - наименование товара, в Double - общая сумма продаж по товару
     public Map<String, Double> getGoods(){
         for (int i = 0; i < list.size(); i++) {
-            String [] productInfo = list.get(i).split(",");
+            String [] productInfo = list.get(i).split(", ");
             if (sortProducts.get(productInfo[1]) == null){
                 sortProducts.put(productInfo[1], Double.parseDouble(productInfo[3]));
             } else {
