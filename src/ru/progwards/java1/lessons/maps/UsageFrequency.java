@@ -69,13 +69,14 @@ public class UsageFrequency {
     public Map<String, Integer> getWords(){
         Map<String, Integer> mapForWords = new TreeMap<>();
         String [] allWords = convertStringToWordArray(strForLetters);
+        String numbers = "0123456789";
         for (int i = 0; i < allWords.length; i++) {
 //            String word = getWordWithoutEndingSymbols(allWords[i]);
             char[] wordWithSymbols = allWords[i].toCharArray();
-            if (!Character.isAlphabetic(wordWithSymbols[0]) ||
-                    !Character.isAlphabetic(wordWithSymbols[wordWithSymbols.length-1]) ||
-                    wordWithSymbols.length == 0){
-                break;
+            if (wordWithSymbols.length == 0 ||
+                    (!Character.isAlphabetic(wordWithSymbols[0]) && !numbers.contains(String.valueOf(wordWithSymbols[0]))) ||
+                    (!Character.isAlphabetic(wordWithSymbols[wordWithSymbols.length-1]) && !numbers.contains(String.valueOf(wordWithSymbols[wordWithSymbols.length-1])))){
+                continue;
             } else {
                 if (mapForWords.get(allWords[i]) == null){
                     mapForWords.put(allWords[i], 1);
