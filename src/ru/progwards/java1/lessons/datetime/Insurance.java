@@ -62,6 +62,10 @@ public class Insurance {
     //1.6 - установить продолжительность действия страховки
     public void setDuration(String strDuration, FormatStyle style){}
 
+    //методы возврата информации:
+    public boolean checkValid(ZonedDateTime dateTime){return true;}
+    public String toString(){return "Suck";}
+
     public ZonedDateTime getStart() {
         return start;
     }
