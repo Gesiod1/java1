@@ -26,13 +26,22 @@ public class Insurance {
 //    SHORT соответствует ISO_LOCAL_DATE
 //    LONG  - ISO_LOCAL_DATE_TIME
 //    FULL - ISO_ZONED_DATE_TIME
-    private String strStart;
+
     public Insurance(String strStart, FormatStyle style){
-        this.strStart = strStart;
+
         switch (style){
-            case SHORT: DateTimeFormatter.ISO_LOCAL_DATE.format(start);
-            case LONG: DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(start);
-            case FULL: DateTimeFormatter.ISO_ZONED_DATE_TIME.format(start);
+            case SHORT:
+                Instant instant1 = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart)));
+                start = instant1.atZone(ZoneId.systemDefault());
+                break;
+            case LONG:
+                Instant instant2 = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart)));
+                start = instant2.atZone(ZoneId.systemDefault());
+                break;
+            case FULL:
+                Instant instant3 = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
+                start = instant3.atZone(ZoneId.systemDefault());
+                break;
         }
     }
     //Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
@@ -48,13 +57,23 @@ public class Insurance {
         this.duration = Duration.between(start, expiration);
     }
 
+    public ZonedDateTime getStart() {
+        return start;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
     public static void main(String[] args) {
         Instant instant1 = Instant.now();
         ZonedDateTime zdt1 = instant1.atZone(ZoneId.of("Europe/Moscow"));
-        Instant instant2 = instant1.plusSeconds(6549849);
+        Instant instant2 = instant1.plusSeconds(180);
         ZonedDateTime zdt2 = instant2.atZone(ZoneId.of("Europe/Moscow"));
+        System.out.println(zdt1.toString());
         Insurance test = new Insurance(zdt1);
         test.setDuration(zdt2);
+        System.out.println( test.getDuration().toMillis());
         System.out.println();
 
 
