@@ -56,6 +56,11 @@ public class Insurance {
     public void setDuration(ZonedDateTime expiration){
         this.duration = Duration.between(start, expiration);
     }
+    //1.5 -  установить продолжительность действия страховки, задав целыми числами количество месяцев, дней и часов
+    public void setDuration(int months, int days, int hours){}
+
+    //1.6 - установить продолжительность действия страховки
+    public void setDuration(String strDuration, FormatStyle style){}
 
     public ZonedDateTime getStart() {
         return start;
