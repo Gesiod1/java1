@@ -13,6 +13,8 @@ public class Insurance {
     //продолжительность действия
     private Duration duration;
 
+    private boolean isValid;
+
     //стили формата даты-времени
     public static enum FormatStyle {SHORT, LONG, FULL}
 
@@ -20,6 +22,7 @@ public class Insurance {
     //установить дату-время начала действия страховки
     public Insurance(ZonedDateTime start){
         this.start = start;
+        checkValid(start);
     }
 
     //установить дату-время начала действия страховки
@@ -28,21 +31,22 @@ public class Insurance {
 //    FULL - ISO_ZONED_DATE_TIME
 
     public Insurance(String strStart, FormatStyle style){
-
+        Instant instant = null;
         switch (style){
             case SHORT:
-                Instant instant1 = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart)));
-                start = instant1.atZone(ZoneId.systemDefault());
+                instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart)));
+                start = instant.atZone(ZoneId.systemDefault());
                 break;
             case LONG:
-                Instant instant2 = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart)));
-                start = instant2.atZone(ZoneId.systemDefault());
+                 instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart)));
+                start = instant.atZone(ZoneId.systemDefault());
                 break;
             case FULL:
-                Instant instant3 = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
-                start = instant3.atZone(ZoneId.systemDefault());
+                instant = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
+                start = instant.atZone(ZoneId.systemDefault());
                 break;
         }
+        checkValid(start);
     }
     //Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
 
@@ -63,8 +67,26 @@ public class Insurance {
     public void setDuration(String strDuration, FormatStyle style){}
 
     //методы возврата информации:
-    public boolean checkValid(ZonedDateTime dateTime){return true;}
-    public String toString(){return "Suck";}
+    //проверить действительна ли страховка на указанную дату-время. Если продолжительность не задана считать страховку бессрочной
+    public boolean checkValid(ZonedDateTime dateTime){
+        isValid = false;
+        if (duration == null){
+            isValid = true;
+            return isValid;
+        }
+        ZonedDateTime finishInsurance = start.plusSeconds(duration.getSeconds());
+        if (start.getSecond() <= dateTime.getSecond() && dateTime.getSecond() <= finishInsurance.getSecond()){
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    //вернуть строку формата "Insurance issued on " + start + validStr, где validStr = " is valid",
+    // если страховка действительна на данный момент и " is not valid", если она недействительна.
+    public String toString(){
+        String s = isValid ? " is valid" : " is not valid";
+        return "Insurance issued on " + start.toString() + s;
+    }
 
     public ZonedDateTime getStart() {
         return start;
@@ -83,6 +105,8 @@ public class Insurance {
         Insurance test = new Insurance(zdt1);
         test.setDuration(zdt2);
         System.out.println( test.getDuration().toMillis());
+        System.out.println(test.checkValid(zdt2));
+        test.toString();
         System.out.println();
 
 
