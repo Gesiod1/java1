@@ -106,7 +106,7 @@ public class Insurance {
         test.setDuration(zdt2);
         System.out.println( test.getDuration().toMillis());
         System.out.println(test.checkValid(zdt2));
-        test.toString();
+        System.out.println(test.toString());
         System.out.println();
 
 
