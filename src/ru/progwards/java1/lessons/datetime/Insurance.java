@@ -61,7 +61,10 @@ public class Insurance {
         this.duration = Duration.between(start, expiration);
     }
     //1.5 -  установить продолжительность действия страховки, задав целыми числами количество месяцев, дней и часов
-    public void setDuration(int months, int days, int hours){}
+    public void setDuration(int months, int days, int hours){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM:dd:HH");
+
+    }
 
     //1.6 - установить продолжительность действия страховки
     public void setDuration(String strDuration, FormatStyle style){}
@@ -69,17 +72,25 @@ public class Insurance {
     //методы возврата информации:
     //проверить действительна ли страховка на указанную дату-время. Если продолжительность не задана считать страховку бессрочной
     public boolean checkValid(ZonedDateTime dateTime){
-        isValid = false;
-        if (duration == null){
-            isValid = true;
-            return isValid;
+//        isValid = false;
+//        if (duration == null){
+//            isValid = true;
+//            return isValid;
+//        }
+//        ZonedDateTime finishInsurance = start.plusSeconds(duration.getSeconds());
+//        if (start.getSecond() <= dateTime.getSecond() && dateTime.getSecond() <= finishInsurance.getSecond()){
+//            isValid = true;
+//        }
+//        return isValid;
+
+            if (start.isAfter(dateTime))
+                return isValid = false;
+            if (duration == null)
+                return isValid = true;
+
+            return isValid = duration.compareTo(Duration.between(start, dateTime)) > 0 ? true : false;
+
         }
-        ZonedDateTime finishInsurance = start.plusSeconds(duration.getSeconds());
-        if (start.getSecond() <= dateTime.getSecond() && dateTime.getSecond() <= finishInsurance.getSecond()){
-            isValid = true;
-        }
-        return isValid;
-    }
 
     //вернуть строку формата "Insurance issued on " + start + validStr, где validStr = " is valid",
     // если страховка действительна на данный момент и " is not valid", если она недействительна.
