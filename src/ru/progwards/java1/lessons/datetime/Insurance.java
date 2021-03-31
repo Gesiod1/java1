@@ -45,6 +45,8 @@ public class Insurance {
                 instant = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
                 start = instant.atZone(ZoneId.systemDefault());
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + style);
         }
         checkValid(start);
     }
@@ -62,12 +64,31 @@ public class Insurance {
     }
     //1.5 -  установить продолжительность действия страховки, задав целыми числами количество месяцев, дней и часов
     public void setDuration(int months, int days, int hours){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM:dd:HH");
-
+        this.duration = Duration.ofHours(hours + 24 * (days + 30 * months));
     }
 
     //1.6 - установить продолжительность действия страховки
-    public void setDuration(String strDuration, FormatStyle style){}
+    public void setDuration(String strDuration, FormatStyle style){
+        ZonedDateTime zdtForDuration;
+        Instant instant = null;
+        switch (style){
+            case SHORT:
+                instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strDuration)));
+                zdtForDuration = instant.atZone(ZoneId.systemDefault());
+                break;
+            case LONG:
+                instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strDuration)));
+                zdtForDuration = instant.atZone(ZoneId.systemDefault());
+                break;
+            case FULL:
+                instant = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strDuration)));
+                zdtForDuration = instant.atZone(ZoneId.systemDefault());
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + style);
+        }
+        this.duration = Duration.between(start, zdtForDuration);
+    }
 
     //методы возврата информации:
     //проверить действительна ли страховка на указанную дату-время. Если продолжительность не задана считать страховку бессрочной
@@ -114,7 +135,8 @@ public class Insurance {
         ZonedDateTime zdt2 = instant2.atZone(ZoneId.of("Europe/Moscow"));
         System.out.println(zdt1.toString());
         Insurance test = new Insurance(zdt1);
-        test.setDuration(zdt2);
+//        test.setDuration(zdt2);
+        test.setDuration(1, 3, 1);
         System.out.println( test.getDuration().toMillis());
         System.out.println(test.checkValid(zdt2));
         System.out.println(test.toString());
