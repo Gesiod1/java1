@@ -10,7 +10,7 @@ public class Insurance {
     //продолжительность действия
     private Duration duration;
 
-    private boolean isValid = false;
+    private boolean isValid;
 
     //стили формата даты-времени
     public static enum FormatStyle {SHORT, LONG, FULL}
@@ -19,7 +19,7 @@ public class Insurance {
     //установить дату-время начала действия страховки
     public Insurance(ZonedDateTime start){
         this.start = start;
-        checkValid(start);
+        checkValid(this.start);
     }
 
     //установить дату-время начала действия страховки
