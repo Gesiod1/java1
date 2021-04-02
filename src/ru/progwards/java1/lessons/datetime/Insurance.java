@@ -10,7 +10,7 @@ public class Insurance {
     //продолжительность действия
     private Duration duration;
 
-    private boolean isValid;
+    private boolean isValid = false;
 
     //стили формата даты-времени
     public static enum FormatStyle {SHORT, LONG, FULL}
