@@ -1,9 +1,6 @@
 package ru.progwards.java1.lessons.datetime;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
@@ -34,16 +31,17 @@ public class Insurance {
         Instant instant = null;
         switch (style){
             case SHORT:
-                instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart)));
-                start = instant.atZone(ZoneId.systemDefault());
+                //instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart)));
+                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
+                start = ZonedDateTime.from(localDate);
                 break;
             case LONG:
-                 instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart)));
-                start = instant.atZone(ZoneId.systemDefault());
+                 LocalDateTime localDateTime = LocalDateTime.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart)));
+                start = ZonedDateTime.from(localDateTime);
                 break;
             case FULL:
-                instant = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
-                start = instant.atZone(ZoneId.systemDefault());
+                ZonedDateTime zonedDateTime = ZonedDateTime.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
+                start = ZonedDateTime.from(zonedDateTime);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + style);
