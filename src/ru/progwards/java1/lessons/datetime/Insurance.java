@@ -28,20 +28,19 @@ public class Insurance {
 //    FULL - ISO_ZONED_DATE_TIME
 
     public Insurance(String strStart, FormatStyle style){
-        Instant instant = null;
         switch (style){
             case SHORT:
-                //instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart)));
-                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
-                start = ZonedDateTime.from(localDate);
+//                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
+                LocalDate localDate = LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE);
+                this.start = localDate.atStartOfDay(ZoneId.systemDefault());
                 break;
             case LONG:
-                 LocalDateTime localDateTime = LocalDateTime.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strStart)));
-                start = ZonedDateTime.from(localDateTime);
+                LocalDateTime localDateTime = LocalDateTime.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                this.start = localDateTime.atZone(ZoneId.systemDefault());
                 break;
             case FULL:
-                ZonedDateTime zonedDateTime = ZonedDateTime.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strStart)));
-                start = ZonedDateTime.from(zonedDateTime);
+                ZonedDateTime zonedDateTime = ZonedDateTime.parse(strStart, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+                this.start = zonedDateTime;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + style);
@@ -68,19 +67,19 @@ public class Insurance {
     //1.6 - установить продолжительность действия страховки
     public void setDuration(String strDuration, FormatStyle style){
         ZonedDateTime zdtForDuration;
-        Instant instant = null;
         switch (style){
             case SHORT:
-                instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE.parse(strDuration)));
-                zdtForDuration = instant.atZone(ZoneId.systemDefault());
+//                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
+                LocalDate localDate = LocalDate.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE);
+                zdtForDuration = localDate.atStartOfDay(ZoneId.systemDefault());
                 break;
             case LONG:
-                instant = Instant.from((DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(strDuration)));
-                zdtForDuration = instant.atZone(ZoneId.systemDefault());
+                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                zdtForDuration = localDateTime.atZone(ZoneId.systemDefault());
                 break;
             case FULL:
-                instant = Instant.from((DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(strDuration)));
-                zdtForDuration = instant.atZone(ZoneId.systemDefault());
+                ZonedDateTime zonedDateTime = ZonedDateTime.parse(strDuration, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+                zdtForDuration = zonedDateTime;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + style);
@@ -139,6 +138,8 @@ public class Insurance {
         System.out.println(test.checkValid(zdt2));
         System.out.println(test.toString());
         System.out.println();
+        Insurance insurance = new Insurance("2020-04-01", FormatStyle.SHORT);
+        System.out.println(insurance);
 
 
     }
