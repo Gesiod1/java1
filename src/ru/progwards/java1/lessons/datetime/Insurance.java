@@ -45,7 +45,7 @@ public class Insurance {
             default:
                 throw new IllegalStateException("Unexpected value: " + style);
         }
-        checkValid(start);
+//        checkValid(start);
     }
     //Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
 
