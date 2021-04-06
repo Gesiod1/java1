@@ -19,7 +19,7 @@ public class Insurance {
     //установить дату-время начала действия страховки
     public Insurance(ZonedDateTime start){
         this.start = start;
-        checkValid(this.start);
+//        checkValid(this.start);
     }
 
     //установить дату-время начала действия страховки
