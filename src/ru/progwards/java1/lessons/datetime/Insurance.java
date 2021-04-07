@@ -30,7 +30,6 @@ public class Insurance {
     public Insurance(String strStart, FormatStyle style){
         switch (style){
             case SHORT:
-//                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
                 LocalDate localDate = LocalDate.parse(strStart, DateTimeFormatter.ISO_LOCAL_DATE);
                 this.start = localDate.atStartOfDay(ZoneId.systemDefault());
                 break;
