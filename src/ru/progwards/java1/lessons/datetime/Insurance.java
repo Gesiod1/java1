@@ -125,20 +125,26 @@ public class Insurance {
     }
 
     public static void main(String[] args) {
-        Instant instant1 = Instant.now();
-        ZonedDateTime zdt1 = instant1.atZone(ZoneId.of("Europe/Moscow"));
-        Instant instant2 = instant1.plusSeconds(180);
-        ZonedDateTime zdt2 = instant2.atZone(ZoneId.of("Europe/Moscow"));
-        System.out.println(zdt1.toString());
-        Insurance test = new Insurance(zdt1);
+//        Instant instant1 = Instant.now();
+//        ZonedDateTime zdt1 = instant1.atZone(ZoneId.of("Europe/Moscow"));
+//        Instant instant2 = instant1.plusSeconds(180);
+//        ZonedDateTime zdt2 = instant2.atZone(ZoneId.of("Europe/Moscow"));
+//        System.out.println(zdt1.toString());
+//        Insurance test = new Insurance(zdt1);
 //        test.setDuration(zdt2);
-        test.setDuration(1, 3, 1);
-        System.out.println( test.getDuration().toMillis());
-        System.out.println(test.checkValid(zdt2));
-        System.out.println(test.toString());
-        System.out.println();
-        Insurance insurance = new Insurance("2020-04-01", FormatStyle.SHORT);
-        System.out.println(insurance);
+//        test.setDuration(1, 3, 1);
+//        System.out.println( test.getDuration().toMillis());
+//        System.out.println(test.checkValid(zdt2));
+//        System.out.println(test.toString());
+//        System.out.println();
+//        Insurance insurance = new Insurance("2020-04-01", FormatStyle.SHORT);
+//        System.out.println(insurance);
+        ZonedDateTime zdf = ZonedDateTime.from(
+                DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-03-31T11:54:11.165802+03:00[Europe/Moscow]"));
+        System.out.println(zdf);
+        Insurance in = new Insurance(zdf);
+        in.setDuration(Duration.ofDays(1));
+        System.out.println(in);
 
 
     }
