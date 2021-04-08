@@ -105,7 +105,7 @@ public class Insurance {
             if (duration == null)
                 return isValid = true;
 
-            return isValid = duration.compareTo(Duration.between(start, dateTime)) > 0 ? true : false;
+            return isValid = duration.compareTo(Duration.between(start, dateTime)) > 0 ? false : true;
 
         }
 
@@ -140,7 +140,7 @@ public class Insurance {
 //        Insurance insurance = new Insurance("2020-04-01", FormatStyle.SHORT);
 //        System.out.println(insurance);
         ZonedDateTime zdf = ZonedDateTime.from(
-                DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-03-31T11:54:11.165802+03:00[Europe/Moscow]"));
+                DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-04-07T14:44:13.365284+03:00[Europe/Moscow]"));
         System.out.println(zdf);
         Insurance in = new Insurance(zdf);
         in.setDuration(Duration.ofDays(1));
