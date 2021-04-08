@@ -105,7 +105,7 @@ public class Insurance {
             if (duration == null)
                 return isValid = true;
 
-            return isValid = duration.compareTo(Duration.between(start, dateTime)) > 0 ? false : true;
+            return isValid = duration.compareTo(Duration.between(start, dateTime)) > 0 ? true : false;
 
         }
 
