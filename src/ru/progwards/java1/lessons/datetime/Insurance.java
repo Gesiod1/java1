@@ -19,7 +19,7 @@ public class Insurance {
     //установить дату-время начала действия страховки
     public Insurance(ZonedDateTime start){
         this.start = start;
-//        checkValid(this.start);
+        checkValid(this.start);
     }
 
     //установить дату-время начала действия страховки
@@ -44,7 +44,7 @@ public class Insurance {
             default:
                 throw new IllegalStateException("Unexpected value: " + style);
         }
-//        checkValid(start);
+        checkValid(start);
     }
     //Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
 
@@ -143,9 +143,11 @@ public class Insurance {
                 DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-04-07T14:44:13.365284+03:00[Europe/Moscow]"));
         System.out.println(zdf);
         Insurance in = new Insurance(zdf);
-        in.setDuration(Duration.ofDays(1));
+        in.setDuration(Duration.ofDays(8));
         System.out.println(in);
-
-
+        ZonedDateTime ddd = ZonedDateTime.from(
+                DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-04-17T14:44:13.365284+03:00[Europe/Moscow]"));
+        in.checkValid(ddd);
+        System.out.println(in);
     }
 }
