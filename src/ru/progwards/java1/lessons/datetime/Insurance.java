@@ -19,7 +19,6 @@ public class Insurance {
     //установить дату-время начала действия страховки
     public Insurance(ZonedDateTime start){
         this.start = start;
-        checkValid(this.start);
     }
 
     //установить дату-время начала действия страховки
@@ -44,7 +43,6 @@ public class Insurance {
             default:
                 throw new IllegalStateException("Unexpected value: " + style);
         }
-        checkValid(start);
     }
     //Для вариантов, когда не задан явно часовой пояс использовать таковой по умолчанию.
 
@@ -89,24 +87,11 @@ public class Insurance {
     //методы возврата информации:
     //проверить действительна ли страховка на указанную дату-время. Если продолжительность не задана считать страховку бессрочной
     public boolean checkValid(ZonedDateTime dateTime){
-//        isValid = false;
-//        if (duration == null){
-//            isValid = true;
-//            return isValid;
-//        }
-//        ZonedDateTime finishInsurance = start.plusSeconds(duration.getSeconds());
-//        if (start.getSecond() <= dateTime.getSecond() && dateTime.getSecond() <= finishInsurance.getSecond()){
-//            isValid = true;
-//        }
-//        return isValid;
-
             if (start.isAfter(dateTime))
                 return isValid = false;
             if (duration == null)
                 return isValid = true;
-
             return isValid = duration.compareTo(Duration.between(start, dateTime)) > 0 ? true : false;
-
         }
 
     //вернуть строку формата "Insurance issued on " + start + validStr, где validStr = " is valid",
