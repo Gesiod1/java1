@@ -10,7 +10,7 @@ public class Insurance {
     //продолжительность действия
     private Duration duration;
 
-    private boolean isValid;
+    private boolean isValid = true;
 
     //стили формата даты-времени
     public static enum FormatStyle {SHORT, LONG, FULL}
@@ -58,7 +58,7 @@ public class Insurance {
     }
     //1.5 -  установить продолжительность действия страховки, задав целыми числами количество месяцев, дней и часов
     public void setDuration(int months, int days, int hours){
-        this.duration = Duration.ofHours(hours + 24 * (days + 30 * months));
+        setDuration(start.plusMonths(months).plusDays(days).plusHours(hours));
     }
 
     //1.6 - установить продолжительность действия страховки
@@ -97,7 +97,7 @@ public class Insurance {
     //вернуть строку формата "Insurance issued on " + start + validStr, где validStr = " is valid",
     // если страховка действительна на данный момент и " is not valid", если она недействительна.
     public String toString(){
-        String s = isValid ? " is valid" : " is not valid";
+        String s = checkValid(ZonedDateTime.now()) ? " is valid" : " is not valid";
         return "Insurance issued on " + start.toString() + s;
     }
 
@@ -125,10 +125,10 @@ public class Insurance {
 //        Insurance insurance = new Insurance("2020-04-01", FormatStyle.SHORT);
 //        System.out.println(insurance);
         ZonedDateTime zdf = ZonedDateTime.from(
-                DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-04-07T14:44:13.365284+03:00[Europe/Moscow]"));
+                DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-04-08T20:02:14.041530+03:00[Europe/Moscow]"));
         System.out.println(zdf);
         Insurance in = new Insurance(zdf);
-        in.setDuration(Duration.ofDays(8));
+        in.setDuration(Duration.ofDays(2));
         System.out.println(in);
         ZonedDateTime ddd = ZonedDateTime.from(
                 DateTimeFormatter.ISO_ZONED_DATE_TIME.parse("2021-04-17T14:44:13.365284+03:00[Europe/Moscow]"));
