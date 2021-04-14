@@ -63,25 +63,39 @@ public class Insurance {
 
     //1.6 - установить продолжительность действия страховки
     public void setDuration(String strDuration, FormatStyle style){
-        ZonedDateTime zdtForDuration;
-        switch (style){
-            case SHORT:
-//                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
-                LocalDate localDate = LocalDate.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE);
-                zdtForDuration = localDate.atStartOfDay(ZoneId.systemDefault());
-                break;
-            case LONG:
-                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                zdtForDuration = localDateTime.atZone(ZoneId.systemDefault());
-                break;
-            case FULL:
-                ZonedDateTime zonedDateTime = ZonedDateTime.parse(strDuration, DateTimeFormatter.ISO_ZONED_DATE_TIME);
-                zdtForDuration = zonedDateTime;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + style);
-        }
-        this.duration = Duration.between(start, zdtForDuration);
+//        ZonedDateTime zdtForDuration;
+//        switch (style){
+//            case SHORT:
+////                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
+//                LocalDate localDate = LocalDate.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE);
+//                zdtForDuration = localDate.atStartOfDay(ZoneId.systemDefault());
+//                break;
+//            case LONG:
+//                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//                zdtForDuration = localDateTime.atZone(ZoneId.systemDefault());
+//                break;
+//            case FULL:
+//                ZonedDateTime zonedDateTime = ZonedDateTime.parse(strDuration, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+//                zdtForDuration = zonedDateTime;
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + style);
+//        }
+//        this.duration = Duration.between(start, zdtForDuration);
+        if (style == FormatStyle.SHORT)
+            duration = Duration.ofMillis(Long.parseLong(strDuration));
+        else if (style == FormatStyle.LONG) {
+            LocalDateTime v = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            ZonedDateTime z = start.plusYears(v.getYear()).
+                    plusMonths(v.getMonthValue()).
+                    plusDays(v.getDayOfMonth()).
+                    plusHours(v.getHour()).
+                    plusMinutes(v.getMinute()).
+                    plusSeconds(v.getSecond());
+            duration = Duration.between(start, z);
+
+        } else
+            duration = Duration.parse(strDuration);
     }
 
     //методы возврата информации:
