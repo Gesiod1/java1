@@ -59,29 +59,11 @@ public class Insurance {
     //1.5 -  установить продолжительность действия страховки, задав целыми числами количество месяцев, дней и часов
     public void setDuration(int months, int days, int hours){
         setDuration(start.plusMonths(months).plusDays(days).plusHours(hours));
+
     }
 
     //1.6 - установить продолжительность действия страховки
     public void setDuration(String strDuration, FormatStyle style){
-//        ZonedDateTime zdtForDuration;
-//        switch (style){
-//            case SHORT:
-////                LocalDate localDate = LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse(strStart));
-//                LocalDate localDate = LocalDate.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE);
-//                zdtForDuration = localDate.atStartOfDay(ZoneId.systemDefault());
-//                break;
-//            case LONG:
-//                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//                zdtForDuration = localDateTime.atZone(ZoneId.systemDefault());
-//                break;
-//            case FULL:
-//                ZonedDateTime zonedDateTime = ZonedDateTime.parse(strDuration, DateTimeFormatter.ISO_ZONED_DATE_TIME);
-//                zdtForDuration = zonedDateTime;
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + style);
-//        }
-//        this.duration = Duration.between(start, zdtForDuration);
         if (style == FormatStyle.SHORT)
             duration = Duration.ofMillis(Long.parseLong(strDuration));
         else if (style == FormatStyle.LONG) {
