@@ -134,37 +134,6 @@ class StatisticInfo
                 ", count=" + count +
                 '}' + "\n";
     }
-
-//    public static void main(String[] args) {
-//        long val = 0;
-//        enterSection("1");
-//        for (int i = 0; i< 1000000; i++) {
-//            enterSection("2");
-//            val += i * 2;
-//            System.out.println(val + '\n');
-//            exitSection("2");
-//        }
-//        for (int i = 0; i< 10; i++) {
-//            enterSection("3");
-//            val += i * 2;
-//            System.out.println(val + '\n');
-//            exitSection("3");
-//        }
-//        exitSection("1");
-//        System.out.println(getStatisticInfo().get(0).sectionName + ": " + getStatisticInfo().get(0).selfTime);
-//        System.out.println(getStatisticInfo().get(1).sectionName + ": " + getStatisticInfo().get(1).selfTime);
-//        System.out.println(getStatisticInfo().get(1).sectionName + ": " + getStatisticInfo().get(1).fullTime);
-//        System.out.println(getStatisticInfo().get(2).sectionName + ": " + getStatisticInfo().get(2).selfTime);
-//        System.out.println(getStatisticInfo().get(2).sectionName + ": " + getStatisticInfo().get(2).fullTime);
-//        enterSection("4");
-//        for (int i = 0; i< 10000; i++) {
-//            val += i * 2;
-//            System.out.println(val + '\n');
-//        }
-//        exitSection("4");
-//        System.out.println(getStatisticInfo().get(3).sectionName + ": " + getStatisticInfo().get(3).selfTime);
-//        System.out.println(getStatisticInfo().get(3).sectionName + ": " + getStatisticInfo().get(3).fullTime);
-//    }
 }
 
 
