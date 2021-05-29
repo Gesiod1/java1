@@ -73,10 +73,21 @@ public class SessionManager {
         sessionManager.find("Вадик");
         sessionManager.add(userSession);
         userSession.getSessionHandle();
-        System.out.println(sessionManager.get(2));
-        System.out.println(sessionManager.get(10));
-        System.out.println(sessionManager.get(100));
+        System.out.println(sessionManager.get( userSession.getSessionHandle()));
+        System.out.println(sessionManager.get( userSession.getSessionHandle()));
+        System.out.println(sessionManager.get( userSession.getSessionHandle()));
         Thread.sleep(2000);
+        System.out.println(sessionManager.get( userSession.getSessionHandle()));
+        UserSession userSession1 = new UserSession("Петя");
+        Thread.sleep(500);
+        sessionManager.deleteExpired();
+        for (int i = 0; i < sessionManager.sessions.size(); i++) {
+            System.out.println(sessionManager.sessions.get(i));
+        }
+        sessionManager.delete(userSession1.getSessionHandle());
+        for (int i = 0; i < sessionManager.sessions.size(); i++) {
+            System.out.println(sessionManager.sessions.get(i));
+        }
 
     }
 }
