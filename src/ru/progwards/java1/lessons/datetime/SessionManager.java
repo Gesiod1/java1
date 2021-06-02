@@ -1,5 +1,6 @@
 package ru.progwards.java1.lessons.datetime;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SessionManager {
                 break;
             }
         }
-        if (userSession != null && (LocalDateTime.now().getSecond() - sessionValid) < userSession.getSessionHandle()){
+        if (userSession != null && Duration.between(LocalDateTime.now(), userSession.getLastAccess()).toSeconds() < sessionValid){
             userSession.updateLastAccess();
             return userSession;
         }
@@ -44,7 +45,7 @@ public class SessionManager {
                 break;
             }
         }
-        if (userSession != null && (LocalDateTime.now().getSecond() - sessionValid) < userSession.getSessionHandle()){
+        if (userSession != null && Duration.between(LocalDateTime.now(), userSession.getLastAccess()).toSeconds() < sessionValid ){
             userSession.updateLastAccess();
             return userSession;
         }
@@ -61,34 +62,48 @@ public class SessionManager {
     //удаляет все сессии с истекшим сроком годности
     public void deleteExpired(){
         for (int i = 0; i < sessions.size(); i++) {
-            if ((LocalDateTime.now().getSecond() - sessionValid) < sessions.get(i).getSessionHandle()){
-                sessions.remove(i--);
+//            if ((LocalDateTime.now().getSecond() - sessionValid) < sessions.get(i).getLastAccess().getSecond()){
+//                sessions.remove(i--);
+//            }
+            if (Duration.between(LocalDateTime.now(), sessions.get(i).getLastAccess()).toSeconds() < sessionValid){
+//                sessions.remove(i--);
+                sessions.remove(sessions.get(i));
+                i = i--;
             }
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        UserSession userSession = new UserSession("Вадик");
-        SessionManager sessionManager = new SessionManager(1000);
-        sessionManager.find("Вадик");
-        sessionManager.add(userSession);
-        userSession.getSessionHandle();
-        System.out.println(sessionManager.get( userSession.getSessionHandle()).getUserName());
-        System.out.println(sessionManager.get( userSession.getSessionHandle()).getUserName());
-        System.out.println(sessionManager.get( userSession.getSessionHandle()).getUserName());
-        Thread.sleep(2000);
-        System.out.println(sessionManager.get( userSession.getSessionHandle()).getUserName());
-        UserSession userSession1 = new UserSession("Петя");
-        Thread.sleep(500);
-        sessionManager.deleteExpired();
-        for (int i = 0; i < sessionManager.sessions.size(); i++) {
-            System.out.println(sessionManager.sessions.get(i));
-        }
-        sessionManager.delete(userSession1.getSessionHandle());
-        for (int i = 0; i < sessionManager.sessions.size(); i++) {
-            System.out.println(sessionManager.sessions.get(i));
-        }
 
+        SessionManager sessionManager = new SessionManager(4);
+        sessionManager.add(new UserSession("s1"));
+        Thread.sleep(2000);
+        UserSession us = new UserSession("s3");
+        sessionManager.add(us);
+        Thread.sleep(2000);
+        System.out.println("added: " + sessionManager.sessions.size());
+
+        sessionManager.deleteExpired();
+        System.out.println("expired: " + sessionManager.sessions.size());
+
+        sessionManager.delete(us.getSessionHandle());
+        System.out.println("del by handle: " + sessionManager.sessions.size());
+
+        us = new UserSession("s0");
+        if (sessionManager.find(us.getUserName()) == null) {
+            sessionManager.add(us);
+            for (int i = 0; i < 5; i++) {
+                Thread.sleep(1000);
+                System.out.println("for i: " + i + " " + sessionManager.get(us.getSessionHandle()));
+            }
+            Thread.sleep(5000);
+            System.out.println("after 5000 - " + sessionManager.get(us.getSessionHandle()));
+
+            System.out.println("added 4: " + sessionManager.sessions.size());
+            us = new UserSession("s0");
+            sessionManager.add(us);
+            System.out.println("added 5: " + sessionManager.sessions.size());
+        }
     }
 }
 
