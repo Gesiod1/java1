@@ -29,7 +29,7 @@ public class SessionManager {
                 break;
             }
         }
-        if (userSession != null && Duration.between(LocalDateTime.now(), userSession.getLastAccess()).toSeconds() < sessionValid){
+        if (userSession != null && Duration.between(userSession.getLastAccess(), LocalDateTime.now()).toSeconds() < sessionValid){
             userSession.updateLastAccess();
             return userSession;
         }
@@ -45,7 +45,7 @@ public class SessionManager {
                 break;
             }
         }
-        if (userSession != null && Duration.between(LocalDateTime.now(), userSession.getLastAccess()).toSeconds() < sessionValid ){
+        if (userSession != null && Duration.between(userSession.getLastAccess(), LocalDateTime.now()).toSeconds() < sessionValid ){
             userSession.updateLastAccess();
             return userSession;
         }
@@ -55,20 +55,15 @@ public class SessionManager {
     public void delete(int sessionHandle){
         for (int i = 0; i < sessions.size(); i++) {
             if (sessions.get(i).getSessionHandle() == sessionHandle){
-                sessions.remove(i);
+                sessions.remove(sessions.get(i));
             }
         }
     }
     //удаляет все сессии с истекшим сроком годности
     public void deleteExpired(){
         for (int i = 0; i < sessions.size(); i++) {
-//            if ((LocalDateTime.now().getSecond() - sessionValid) < sessions.get(i).getLastAccess().getSecond()){
-//                sessions.remove(i--);
-//            }
-            if (Duration.between(LocalDateTime.now(), sessions.get(i).getLastAccess()).toSeconds() < sessionValid){
-//                sessions.remove(i--);
-                sessions.remove(sessions.get(i));
-                i = i--;
+            if (Duration.between(sessions.get(i).getLastAccess(), LocalDateTime.now()).toSeconds() < sessionValid){
+                sessions.remove(sessions.get(i--));
             }
         }
     }
@@ -137,5 +132,12 @@ class UserSession{
         updateLastAccess();
     }
 
-
+    @Override
+    public String toString() {
+        return "UserSession{" +
+                "sessionHandle=" + sessionHandle +
+                ", userName='" + userName + '\'' +
+                ", lastAccess=" + lastAccess +
+                '}';
+    }
 }
