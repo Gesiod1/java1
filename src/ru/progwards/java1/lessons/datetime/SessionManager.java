@@ -78,8 +78,8 @@ public class SessionManager {
         Thread.sleep(2000);
         System.out.println("added: " + sessionManager.sessions.size());
 
-//        sessionManager.deleteExpired();
-//        System.out.println("expired: " + sessionManager.sessions.size());
+        sessionManager.deleteExpired();
+        System.out.println("expired: " + sessionManager.sessions.size());
 
         sessionManager.delete(us.getSessionHandle());
         System.out.println("del by handle: " + sessionManager.sessions.size());
