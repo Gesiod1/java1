@@ -38,6 +38,7 @@ public class SessionManager {
     //проверяет наличие существующей сессии по хендлу. Если срок валидности истек,
     // или такой  сессии нет, возвращает null. В противном случае возвращает сессию, обновив ее дату доступа.
     public UserSession get(int sessionHandle){
+        deleteExpired();
         UserSession userSession = null;
         for (int i = 0; i < sessions.size(); i++ ) {
             if (sessions.get(i).getSessionHandle() == sessionHandle){
@@ -62,7 +63,7 @@ public class SessionManager {
     //удаляет все сессии с истекшим сроком годности
     public void deleteExpired(){
         for (int i = 0; i < sessions.size(); i++) {
-            if (Duration.between(sessions.get(i).getLastAccess(), LocalDateTime.now()).toSeconds() > sessionValid){
+            if (Duration.between(sessions.get(i).getLastAccess(), LocalDateTime.now()).toSeconds() >= sessionValid){
                 sessions.remove(sessions.get(i--));
             }
         }
