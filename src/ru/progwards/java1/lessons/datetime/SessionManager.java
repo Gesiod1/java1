@@ -62,7 +62,7 @@ public class SessionManager {
     //удаляет все сессии с истекшим сроком годности
     public void deleteExpired(){
         for (int i = 0; i < sessions.size(); i++) {
-            if (Duration.between(sessions.get(i).getLastAccess(), LocalDateTime.now()).toSeconds() < sessionValid){
+            if (Duration.between(sessions.get(i).getLastAccess(), LocalDateTime.now()).toSeconds() > sessionValid){
                 sessions.remove(sessions.get(i--));
             }
         }
@@ -78,8 +78,8 @@ public class SessionManager {
         Thread.sleep(2000);
         System.out.println("added: " + sessionManager.sessions.size());
 
-        sessionManager.deleteExpired();
-        System.out.println("expired: " + sessionManager.sessions.size());
+//        sessionManager.deleteExpired();
+//        System.out.println("expired: " + sessionManager.sessions.size());
 
         sessionManager.delete(us.getSessionHandle());
         System.out.println("del by handle: " + sessionManager.sessions.size());
