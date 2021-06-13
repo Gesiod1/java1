@@ -28,8 +28,7 @@ public class FindDuplicates {
                 return FileVisitResult.CONTINUE;
             }
         });
-        duplicatesSearch(allFiles);
-        return null;
+        return duplicatesSearch(allFiles);
     }
     // узнать расширение файла
     static String fileExpansion(Path fileName){
