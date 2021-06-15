@@ -45,8 +45,7 @@ public class FindDuplicates {
             List<String> fileInfo = new ArrayList<>(); // список для записи одинаковых файлов
             for (int i = 1; i < pathList.size(); i++) {
                 if (fileInfo.size() == 0){ // добавляем файл из начала pathList и сравниваем с ним другие из остального списка
-                    fileInfo.add(String.valueOf(pathList.get(0).getFileName()));
-                    fileInfo.add(String.valueOf(pathList.get(i).toAbsolutePath()));
+                    fileInfo.add(String.valueOf(pathList.get(0).getFileName()) + " " + pathList.get(0).toAbsolutePath());
                 }
                 if (pathList.get(0).getFileName().equals(pathList.get(i)) &&
                         fileExpansion(pathList.get(0)).equals(fileExpansion(pathList.get(i))) &&
@@ -54,8 +53,7 @@ public class FindDuplicates {
                         Files.size(pathList.get(0)) == Files.size(pathList.get(i)) &&
                         Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i)))){
                     // если дубликаты есть, то добавляем в fileInfo имя файла и полный путь
-                    fileInfo.add(String.valueOf(pathList.get(i).getFileName()));
-                    fileInfo.add(String.valueOf(pathList.get(i).toAbsolutePath()));
+                    fileInfo.add(String.valueOf(pathList.get(i).getFileName()) + " " + pathList.get(i).toAbsolutePath());
                 }
             }
             allDuplicates.add(fileInfo);
