@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class FindDuplicates {
-    List<Path> allFiles = new ArrayList<>();
+    List<Path> allFiles = new ArrayList<>(); // список с путями всех файлов с текущего каталога
 
     public List<List<String>> findDuplicates(String startPath) throws IOException {
         PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
@@ -20,7 +20,7 @@ public class FindDuplicates {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (pathMatcher.matches(file))
-                    allFiles.add(file);
+                    allFiles.add(file); // добавляем в список пути ко всем файлам
                 return FileVisitResult.CONTINUE;
             }
 
@@ -40,22 +40,19 @@ public class FindDuplicates {
 
     // найти дубликаты
     static List<List<String>> duplicatesSearch (List<Path> pathList) throws IOException {
-        List<List<String>> allDuplicates = new ArrayList<>(); // потом добавляем этот список в список списков
+        List<List<String>> allDuplicates = new ArrayList<>();
         while (pathList.size() > 1){
             List<String> fileInfo = new ArrayList<>(); // список для записи одинаковых файлов
             for (int i = 1; i < pathList.size(); i++) {
-                if (fileInfo.size() == 0){
+                if (fileInfo.size() == 0){ // добавляем файл из начала pathList и сравниваем с ним другие из остального списка
                     fileInfo.add(String.valueOf(pathList.get(0).getFileName()));
                 }
-//                System.out.println(pathList.get(0).getFileName() + " " + Files.size(pathList.get(0)) + " " + Files.getLastModifiedTime(pathList.get(0)));
-//                System.out.println();
-//                System.out.println(pathList.get(i).getFileName() + " " + Files.size(pathList.get(i)) + " " + Files.getLastModifiedTime(pathList.get(i)));
-//                System.out.println();
                 if (pathList.get(0).getFileName().equals(pathList.get(i)) &&
                         fileExpansion(pathList.get(0)).equals(fileExpansion(pathList.get(i))) &&
                         Files.getLastModifiedTime(pathList.get(0)).equals(Files.getLastModifiedTime(pathList.get(i))) &&
                         Files.size(pathList.get(0)) == Files.size(pathList.get(i)) &&
                         Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i)))){
+                    // если дубликаты есть, то добавляем в fileInfo имя файла и полный путь
                     fileInfo.add(String.valueOf(pathList.get(i).getFileName()));
                     fileInfo.add(String.valueOf(pathList.get(i).toAbsolutePath()));
                 }
@@ -64,6 +61,7 @@ public class FindDuplicates {
             pathList.remove(0);
             fileInfo.clear();
         }
+        // удаляем из списка списков все файлы, у которых нет дубликатов
         for (int i = 0; i < allDuplicates.size(); i++) {
             if (allDuplicates.get(i).size() < 2){
                 allDuplicates.remove(i);
