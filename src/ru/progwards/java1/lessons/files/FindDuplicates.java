@@ -2,6 +2,7 @@ package ru.progwards.java1.lessons.files;
 
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -42,17 +43,25 @@ public class FindDuplicates {
         List<List<String>> allDuplicates = new ArrayList<>(); // потом добавляем этот список в список списков
         while (pathList.size() > 1){
             List<String> fileInfo = new ArrayList<>(); // список для записи одинаковых файлов
-            for (int i = 0; i < pathList.size(); i++) {
-                fileInfo.add(String.valueOf(pathList.get(0).getFileName()));
-                if (Files.getLastModifiedTime(pathList.get(0)).equals(Files.getLastModifiedTime(pathList.get(i))) &&
+            for (int i = 1; i < pathList.size(); i++) {
+                if (fileInfo.size() == 0){
+                    fileInfo.add(String.valueOf(pathList.get(0).getFileName()));
+                }
+//                System.out.println(pathList.get(0).getFileName() + " " + Files.size(pathList.get(0)) + " " + Files.getLastModifiedTime(pathList.get(0)));
+//                System.out.println();
+//                System.out.println(pathList.get(i).getFileName() + " " + Files.size(pathList.get(i)) + " " + Files.getLastModifiedTime(pathList.get(i)));
+//                System.out.println();
+                if (pathList.get(0).getFileName().equals(pathList.get(i)) &&
+                        fileExpansion(pathList.get(0)).equals(fileExpansion(pathList.get(i))) &&
+                        Files.getLastModifiedTime(pathList.get(0)).equals(Files.getLastModifiedTime(pathList.get(i))) &&
                         Files.size(pathList.get(0)) == Files.size(pathList.get(i)) &&
-                        Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i))) &&
-                        fileExpansion(pathList.get(0)).equals(fileExpansion(pathList.get(i)))){
+                        Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i)))){
                     fileInfo.add(String.valueOf(pathList.get(i).getFileName()));
+                    fileInfo.add(String.valueOf(pathList.get(i).toAbsolutePath()));
                 }
             }
-            pathList.remove(0);
             allDuplicates.add(fileInfo);
+            pathList.remove(0);
             fileInfo.clear();
         }
         for (int i = 0; i < allDuplicates.size(); i++) {
@@ -66,8 +75,40 @@ public class FindDuplicates {
 
 
     public static void main(String[] args) throws IOException {
+        FindDuplicates findDuplicates = new FindDuplicates();
+        final String HOME_DIR = "C:/Users/Марина/IdeaProjects/HelloWorld/test/";
+        String text = "Every day I'm shuffling";
+//        Path pathForCreate = Files.createDirectories(Paths.get(HOME_DIR + "path1/path2/path3"));
+        Path path = Paths.get(HOME_DIR + "path1/path2/path3");
+        Path file1 = Files.writeString(path.resolve("file1.txt"), text);
+//        Files.copy(file1, path.resolve("file2.txt"));
+//        Path file3 = Files.writeString(path.getParent().getParent().resolve("file3.txt"), text);
+//        Path file2 = Files.writeString(path.getParent().getParent().resolve("file2.txt"), text);
+//        Path fileNew1 = Files.writeString(path.getParent().getParent().resolve("file1.txt"), text + " budy");
+//        Path file1InPath1 = Files.writeString(path.getParent().getParent().getParent().resolve("file1.txt"), text );
+//        Path file3InPath1 = Files.writeString(path.getParent().getParent().getParent().resolve("file3.txt"), text);
+        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
+        Files.walkFileTree(Paths.get(HOME_DIR), new SimpleFileVisitor<>(){
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                if (pathMatcher.matches(file))
+                    Files.setLastModifiedTime(file, Files.getLastModifiedTime(Paths.get(HOME_DIR + "path1/path2/path3/file1.txt")));
+                    System.out.println(file.getFileName());
+                    System.out.println(Files.getLastModifiedTime(file));
+                    System.out.println(Files.getAttribute(file, "size"));
+                    System.out.println(fileExpansion(file));
+                    System.out.println();
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                return FileVisitResult.CONTINUE;
+            }
+        });
+        System.out.println(findDuplicates.findDuplicates(HOME_DIR));
+        System.out.println(findDuplicates.allFiles.size());
 
     }
-
 }
 
