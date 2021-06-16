@@ -1,5 +1,6 @@
 package ru.progwards.java1.lessons.files;
 
+import java.io.UncheckedIOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
@@ -13,23 +14,27 @@ import java.io.IOException;
 public class FindDuplicates {
     List<Path> allFiles = new LinkedList<>(); // список с путями всех файлов с текущего каталога
 
-    public List<List<String>> findDuplicates(String startPath) throws IOException {
-        PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
+    public List<List<String>> findDuplicates(String startPath){
+        try {
+            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
 
-        Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>(){
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                if (pathMatcher.matches(file))
-                    allFiles.add(file); // добавляем в список пути ко всем файлам
-                return FileVisitResult.CONTINUE;
-            }
+            Files.walkFileTree(Paths.get(startPath), new SimpleFileVisitor<>(){
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (pathMatcher.matches(file))
+                        allFiles.add(file); // добавляем в список пути ко всем файлам
+                    return FileVisitResult.CONTINUE;
+                }
 
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                return FileVisitResult.CONTINUE;
-            }
-        });
-        return duplicatesSearch(allFiles);
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+            return duplicatesSearch(allFiles);
+        } catch (IOException e){
+            throw new UncheckedIOException(e);
+        }
     }
     // узнать расширение файла
     static String fileExpansion(Path fileName){
@@ -54,13 +59,15 @@ public class FindDuplicates {
                         Files.size(pathList.get(0)) == Files.size(pathList.get(i)) &&
                         Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i)))){
                     // если дубликаты есть, то добавляем в fileInfo имя файла и полный путь
-                    fileInfo.add(String.valueOf(pathList.get(i).getFileName()) + " " + pathList.get(i).toAbsolutePath() + "\n");
+                    fileInfo.add(String.valueOf(pathList.get(i).getFileName()) + " " + pathList.get(i).toAbsolutePath() );
+//                    fileInfo.add("\n");
                     pathList.remove(i);
                     i--;
                 }
             }
             allDuplicates.add(fileInfo);
             pathList.remove(0);
+
         }
         // удаляем из списка списков все файлы, у которых нет дубликатов
         for (int i = 0; i < allDuplicates.size(); i++) {
