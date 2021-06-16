@@ -59,7 +59,7 @@ public class FindDuplicates {
                         Files.size(pathList.get(0)) == Files.size(pathList.get(i)) &&
                         Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i)))){
                     // если дубликаты есть, то добавляем в fileInfo имя файла и полный путь
-                    fileInfo.add(String.valueOf(pathList.get(i).getFileName()) + " " + pathList.get(i).toAbsolutePath() );
+                    fileInfo.add(String.valueOf(pathList.get(i).toAbsolutePath()));
 //                    fileInfo.add("\n");
                     pathList.remove(i);
                     i--;
