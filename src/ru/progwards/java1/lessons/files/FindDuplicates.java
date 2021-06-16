@@ -4,10 +4,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -65,6 +62,7 @@ public class FindDuplicates {
                     i--;
                 }
             }
+            Collections.reverse(fileInfo);
             allDuplicates.add(fileInfo);
             pathList.remove(0);
 
