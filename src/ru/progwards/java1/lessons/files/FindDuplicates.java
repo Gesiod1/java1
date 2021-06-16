@@ -48,7 +48,7 @@ public class FindDuplicates {
             fileInfo.clear();
             for (int i = 1; i < pathList.size(); i++) {
                 if (fileInfo.size() == 0){ // добавляем файл из начала pathList и сравниваем с ним другие из остального списка
-                    fileInfo.add(String.valueOf(pathList.get(0).getFileName()) + " " + pathList.get(0).toAbsolutePath());
+                    fileInfo.add(String.valueOf(pathList.get(0).toAbsolutePath()));
                 }
                 if (pathList.get(0).getFileName().equals(pathList.get(i).getFileName()) &&
                         fileExpansion(pathList.get(0)).equals(fileExpansion(pathList.get(i))) &&
