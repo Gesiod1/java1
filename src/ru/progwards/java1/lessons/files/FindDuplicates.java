@@ -19,7 +19,7 @@ public class FindDuplicates {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     if (pathMatcher.matches(file))
-                        allFiles.add(file); // добавляем в список пути ко всем файлам
+                        allFiles.add(file); // добавляем в allFiles пути ко всем файлам
                     return FileVisitResult.CONTINUE;
                 }
 
@@ -55,9 +55,8 @@ public class FindDuplicates {
                         Files.getLastModifiedTime(pathList.get(0)).equals(Files.getLastModifiedTime(pathList.get(i))) &&
                         Files.size(pathList.get(0)) == Files.size(pathList.get(i)) &&
                         Files.readString(pathList.get(0)).equals(Files.readString(pathList.get(i)))){
-                    // если дубликаты есть, то добавляем в fileInfo имя файла и полный путь
+                    // если дубликаты есть, то добавляем в fileInfo полный путь
                     fileInfo.add(String.valueOf(pathList.get(i).toAbsolutePath()));
-//                    fileInfo.add("\n");
                     pathList.remove(i);
                     i--;
                 }
