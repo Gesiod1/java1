@@ -14,7 +14,7 @@ public class FilesSelect {
 
     public void selectFiles(String inFolder, String outFolder, List<String> keys){
         try {
-            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/.txt");
+            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*.txt");
 
             Files.walkFileTree(Paths.get(inFolder), new SimpleFileVisitor<>(){
                 @Override
@@ -32,7 +32,7 @@ public class FilesSelect {
 
             for (Path path : allNeedFiles){
                 Path outFolderFilePath = Paths.get(outFolder + "/" + keyWord(path, keys));
-                Files.copy(path, outFolderFilePath);
+                Files.copy(path, outFolderFilePath, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e){
             throw new UncheckedIOException(e);
@@ -59,11 +59,32 @@ public class FilesSelect {
         return isKey;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FilesSelect filesSelect = new FilesSelect();
+        final String HOME_DIR = "C:/Users/Марина/IdeaProjects/HelloWorld/test/";
         List<String> words = new ArrayList<>();
-        words.add("file1");
-        words.add("file3");
-        filesSelect.selectFiles("C:/Users/Марина/IdeaProjects/HelloWorld/test/", "C:/Users/Марина/IdeaProjects/HelloWorld/test/path1", words);
+        words.add("111");
+        words.add("222");
+        words.add("333");
+        words.add("123");
+//        String textWth111 = "Every 111 shuffling";
+//        String textWth222 = "Every 222 shuffling";
+//        String textWth333 = "Every 333 shuffling";
+//        String textWth123 = "Every 123 shuffling";
+//        Path Dir111 = Files.createDirectories(Paths.get(HOME_DIR + "test1/111"));
+//        Path Dir222 = Files.createDirectories(Paths.get(HOME_DIR + "test1/222"));
+//        Path Dir333 = Files.createDirectories(Paths.get(HOME_DIR + "test1/333"));
+//        Path Dir123 = Files.createDirectories(Paths.get(HOME_DIR + "test1/123"));
+//        Path pathForCreateDir1 = Files.createDirectories(Paths.get(HOME_DIR + "dir1"));
+//        Path pathForCreateDir2AndDir3 = Files.createDirectories(Paths.get(HOME_DIR + "dir2/dir3"));
+//        Path file1inDir3 = Files.writeString(pathForCreateDir2AndDir3.resolve("file1.txt"), textWth111);
+//        Path file1inDir1 = Files.writeString(pathForCreateDir1.resolve("file1.txt"), textWth111);
+//        Path file2inDir1 = Files.writeString(pathForCreateDir1.resolve("file2.txt"), textWth111);
+//        Path file3inDir1 = Files.writeString(pathForCreateDir1.resolve("file3.txt"), textWth123);
+//        Path file3inDir3 = Files.writeString(pathForCreateDir2AndDir3.resolve("file3.txt"), textWth123);
+//        Path file1inDir2 = Files.writeString(pathForCreateDir2AndDir3.getParent().resolve("file1.txt"), textWth222);
+//        Path file2inDir2 = Files.writeString(pathForCreateDir2AndDir3.getParent().resolve("file2.txt"), textWth111);
+//        Path file2inHome = Files.writeString(pathForCreateDir1.getParent().resolve("file2.txt"), textWth111);
+        filesSelect.selectFiles(HOME_DIR, HOME_DIR + "/test1", words);
     }
 }
