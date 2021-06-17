@@ -34,6 +34,7 @@ public class FilesSelect {
                 Path fileCopy = Files.createFile(Paths.get(outFolder + "/" + keyWord(path, keys) + "/" + String.valueOf(path.getFileName())));
                 Files.copy(path, fileCopy, StandardCopyOption.REPLACE_EXISTING);
             }
+
         } catch (IOException e){
             throw new UncheckedIOException(e);
         }
