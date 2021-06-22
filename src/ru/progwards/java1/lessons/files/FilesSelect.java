@@ -31,7 +31,13 @@ public class FilesSelect {
             });
 
             for (Path path : allNeedFiles){
-                Path fileCopy = Files.createFile(Paths.get(outFolder + "/" + keyWord(path, keys) + "/" + String.valueOf(path.getFileName())));
+                Path fileCopy = Paths.get(outFolder + "/" + keyWord(path, keys) + "/" + path.getFileName());
+                if (Files.notExists(fileCopy.getParent()))
+                    Files.createDirectory(fileCopy.getParent());
+//                System.out.println(fileCopy.getParent().toAbsolutePath());
+                if (Files.notExists(fileCopy))
+                    Files.createFile(fileCopy);
+//                System.out.println(fileCopy.toAbsolutePath());
                 Files.copy(path, fileCopy, StandardCopyOption.REPLACE_EXISTING);
             }
 
@@ -62,7 +68,7 @@ public class FilesSelect {
 
     public static void main(String[] args) throws IOException {
         FilesSelect filesSelect = new FilesSelect();
-        final String HOME_DIR = "C:/Users/Марина/IdeaProjects/HelloWorld/test/";
+        final String HOME_DIR = "C:/Users/Марина/IdeaProjects/HelloWorld/test";
         List<String> words = new ArrayList<>();
         words.add("111");
         words.add("222");
