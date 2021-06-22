@@ -18,9 +18,23 @@ public class FilesSelect {
 
             Files.walkFileTree(Paths.get(inFolder), new SimpleFileVisitor<>(){
                 @Override
+//                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+//                    if (pathMatcher.matches(file) && isContainKey(file, keys))
+//                        allNeedFiles.add(file);
+//                    return FileVisitResult.CONTINUE;
+//                }
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    if (pathMatcher.matches(file) && isContainKey(file, keys))
-                        allNeedFiles.add(file);
+                    if (pathMatcher.matches(file)) {
+                        String txt = Files.readString(file);
+                        for (String k : keys) {
+                            if (txt.toUpperCase().contains(k.toUpperCase())) {
+                                Path path = Paths.get(outFolder + "/" + k);
+                                if (Files.notExists(path))
+                                    Files.createDirectory(path);
+                                Files.copy(file, Paths.get(path + "/" + file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+                            }
+                        }
+                    }
                     return FileVisitResult.CONTINUE;
                 }
 
@@ -30,16 +44,12 @@ public class FilesSelect {
                 }
             });
 
-            for (Path path : allNeedFiles){
-                Path fileCopy = Paths.get(outFolder + "/" + keyWord(path, keys) + "/" + path.getFileName());
-                if (Files.notExists(fileCopy.getParent()))
-                    Files.createDirectory(fileCopy.getParent());
-//                System.out.println(fileCopy.getParent().toAbsolutePath());
-                if (Files.notExists(fileCopy))
-                    Files.createFile(fileCopy);
-//                System.out.println(fileCopy.toAbsolutePath());
-                Files.copy(path, fileCopy, StandardCopyOption.REPLACE_EXISTING);
-            }
+//            for (Path path : allNeedFiles){
+//                Path fileCopy = Paths.get(outFolder + "/" + keyWord(path, keys) + "/" + path.getFileName());
+//                if (Files.notExists(fileCopy.getParent()))
+//                    Files.createDirectory(fileCopy.getParent());
+//                Files.copy(path, fileCopy, StandardCopyOption.REPLACE_EXISTING);
+//            }
 
         } catch (IOException e){
             throw new UncheckedIOException(e);
